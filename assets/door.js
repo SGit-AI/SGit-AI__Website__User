@@ -2,7 +2,7 @@
  * door.js: from a passkey's PRF bytes (or a recovery code) to a door vault's key, the way the
  * passkey article says. Vendored from newsroom.sgit.ai's assets/door.js (newsroom v0.12.x) with
  * one change: the relying party is a parameter, defaulting to this host, so the same code runs
- * here for users.sgit.ai and, in the lab's test vectors, for newsroom.sgit.ai.
+ * here for user.sgit.ai and, in the lab's test vectors, for newsroom.sgit.ai.
  *
  * The derivation, written out (the article's steps 1 to 6, made exact):
  *   prf input        = SHA-256(RP + "/door/v1")                                a public constant
@@ -20,7 +20,7 @@
  * @module door
  */
 
-export const DEFAULT_RP = (typeof location !== 'undefined' && location.hostname) || 'users.sgit.ai'
+export const DEFAULT_RP = (typeof location !== 'undefined' && location.hostname) || 'user.sgit.ai'
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz0123456789'
 const B32 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
 const te = new TextEncoder()

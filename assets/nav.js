@@ -1,4 +1,4 @@
-/* users.sgit.ai — nav interaction, the same component sgit.ai runs.
+/* user.sgit.ai — nav interaction, the same component sgit.ai runs.
    Two jobs, and only one of them needs JavaScript on desktop: hover and :focus-within
    open a dropdown in CSS alone. This handles the rest — the phone menu button, and the
    fact that a finger has no hover. If this file never loads the nav still works: every

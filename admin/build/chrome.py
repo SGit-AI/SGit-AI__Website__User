@@ -121,7 +121,7 @@ def nav_html(rel, up):
             f'    </div>')
     rows = "\n".join(groups)
     return (f'<nav class="site"><div class="row">\n'
-            f'  <a class="brand" href="{up}index.html">users<span>.sgit.ai</span></a>\n'
+            f'  <a class="brand" href="{up}index.html">user<span>.sgit.ai</span></a>\n'
             f'  <a class="parent" href="{PARENT}" title="{PARENT_TITLE}">&#8599; part of <b>sgit.ai</b></a>\n'
             f'  <span class="stage-pill">client side, by design</span>\n'
             f'  <a class="ver" href="{up}admin/versions.html" title="Site release history">{VERSION}</a>\n'
@@ -143,7 +143,7 @@ def footer_html(rel, up):
         for head, links in FOOTER)
     return (f'<footer class="site"><div class="cols">\n'
             f'  <div>\n'
-            f'    <div class="brandline">users<span>.sgit.ai</span></div>\n'
+            f'    <div class="brandline">user<span>.sgit.ai</span></div>\n'
             f'    <p>{BLURB}</p>\n'
             f'    <p class="netline">{NETLINE}</p>\n'
             f'    <p class="partnote">{partnote}</p>\n'

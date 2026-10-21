@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Billing: the user keeps the meter, users.sgit.ai</title>
+<title>Billing: the user keeps the meter, user.sgit.ai</title>
 <meta name="description" content="A proposed design for user management, activity and billing on vaults: one billing vault per user, two signed writers, credit now and validation later, Stripe reconciled from the admin's browser, and one light check at the upload server. A proposal, with the open questions written down.">
-<link rel="canonical" href="https://users.sgit.ai/billing/index.html">
+<link rel="canonical" href="https://user.sgit.ai/billing/index.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="users.sgit.ai">
-<meta property="og:url" content="https://users.sgit.ai/billing/index.html">
+<meta property="og:site_name" content="user.sgit.ai">
+<meta property="og:url" content="https://user.sgit.ai/billing/index.html">
 <meta property="og:title" content="Billing: the user keeps the meter">
 <meta property="og:description" content="Each user gets a billing vault both they and the admin can write to. The user signs activity and claims; the admin signs validations; the one server left asks only whether the key is valid and there is credit.">
 <meta name="twitter:card" content="summary">
@@ -17,10 +17,10 @@
 <body>
 
 <nav class="site"><div class="row">
-  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="brand" href="../index.html">user<span>.sgit.ai</span></a>
   <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
   <span class="stage-pill">client side, by design</span>
-  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.1</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
   <div class="nav-items">
     <div class="ni ni-has">
@@ -75,7 +75,7 @@
 </div></nav>
 
 <main class="doc">
-<div class="crumb"><a href="../index.html">users.sgit.ai</a> / billing</div>
+<div class="crumb"><a href="../index.html">user.sgit.ai</a> / billing</div>
 <h1>The user keeps the meter</h1>
 <p class="lead">A proposed design for user management, activity and billing on vaults, with one billing vault per user, two signed writers, and one light check at the server. It is the design in <a href="https://newsroom.sgit.ai/articles/the-user-keeps-the-meter.html">the article of the same name</a>, 21 October 2026, set out here as the billing half of this site, with its status kept honest: <b>nothing in it is built</b>, the record formats are sketches, and the Stripe flow is untested.</p>
 
@@ -204,7 +204,7 @@ Upload server   ->  Upload server   check the signature and the balance</pre>
 
 <h2 id="open">Open questions</h2>
 <ol>
-  <li><b>Where does it live?</b> <code>user.sgit.ai</code> and <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> and <code>api.billing.sgit.ai</code>, so others can use it easily. This site is at <code>users.sgit.ai</code>; the name is <a href="../admin/comms.html#asks">N1 on the comms page</a>.</li>
+  <li><b>Where does it live?</b> <code>user.sgit.ai</code> and <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> and <code>api.billing.sgit.ai</code>, so others can use it easily. Answered for this site on 21 October 2026: it is <code>user.sgit.ai</code> (<a href="../admin/comms.html#asks">N1</a>). Whether billing also gets a site of its own, for others to use, is still open.</li>
   <li><b>Should the upload server accept unvalidated credit?</b> Where usage costs real money, it may want only validated credit, or a small amount on top.</li>
   <li><b>Who creates the first vault?</b> Maybe the service creates a user's first vault for them, when they first log in. The design assumes it already exists; the account model's first-device flow makes it with the access key the user pasted.</li>
   <li><b>How does login work?</b> A PKI handshake, as everything now does. The account model answers the first half: the passkey, the door, the master, the key pairs. The handshake with a site is the second.</li>
@@ -233,11 +233,11 @@ Upload server   ->  Upload server   check the signature and the balance</pre>
 
 <footer class="site"><div class="cols">
   <div>
-    <div class="brandline">users<span>.sgit.ai</span></div>
+    <div class="brandline">user<span>.sgit.ai</span></div>
     <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
     <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
     <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
-    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.1</a> · <a href="../admin/index.html">engineering</a></p>
   </div>
   <div>
     <h4>The account</h4>

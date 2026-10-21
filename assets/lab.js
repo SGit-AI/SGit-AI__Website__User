@@ -1,4 +1,4 @@
-/* users.sgit.ai, the lab. Every card is a thing you can press; every step is written to the log.
+/* user.sgit.ai, the lab. Every card is a thing you can press; every step is written to the log.
    This page writes nothing to any server. It talks to the passkey store for the gesture and to
    nothing else. The keys it derives live in this page's memory and are cleared by Forget. */
 import * as door from './door.js'
@@ -42,7 +42,7 @@ async function browserCheck() {
         rows.push(['PRF', 'cannot be known until a passkey is made; the store says then', 'dim'])
     }
     rows.push(['Web Crypto', yn(!!(crypto && crypto.subtle)), crypto && crypto.subtle ? 'ok' : 'bad'])
-    const remembered = safeGet('users.lab.passkey')
+    const remembered = safeGet('user.lab.passkey')
     rows.push(['a passkey remembered here', remembered ? `${remembered.label} (${remembered.credId.slice(0, 12)}…)` : 'none', 'dim'])
     out('out1', rows)
     log('browser checked')
@@ -58,7 +58,7 @@ async function makePasskey() {
     try {
         const r = await door.makePasskey(label)
         state.passkey = { ...r, label }
-        safeSet('users.lab.passkey', { credId: r.credId, label, made: new Date().toISOString() })
+        safeSet('user.lab.passkey', { credId: r.credId, label, made: new Date().toISOString() })
         out('out2', [
             ['credential id', r.credId.slice(0, 24) + '…'],
             ['PRF enabled', yn(r.prfEnabled), r.prfEnabled ? 'ok' : 'bad'],
@@ -160,7 +160,7 @@ async function vectors() {
 // ---------------------------------------------------------------- forget
 function forget() {
     for (const k of Object.keys(state)) state[k] = null
-    safeDel('users.lab.passkey')
+    safeDel('user.lab.passkey')
     for (const id of ['out2', 'out3', 'out4', 'out5', 'out5b']) $(id).textContent = ''
     log('forgotten: the bytes, the door and the keys are gone from memory; the remembered label is cleared. The passkey itself is in your store, and only you can delete it there.', 'dim')
     browserCheck()

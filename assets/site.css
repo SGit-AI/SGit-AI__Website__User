@@ -1,4 +1,4 @@
-/* users.sgit.ai, shared stylesheet. Same design language as sgit.ai and the network (light theme). */
+/* user.sgit.ai, shared stylesheet. Same design language as sgit.ai and the network (light theme). */
 :root{
   --bg:#faf9f5; --panel:#ffffff; --panel2:#f2f0e9; --line:#e5e1d5; --line2:#d5d0c2;
   --fg:#1c1d21; --dim:#5c5f66; --dim2:#8a8d94;
@@ -323,7 +323,7 @@ main.doc .warnbox .asof,main.doc .note .asof{background:#fff}
 .t-doing{color:var(--accent-dk);font-weight:600}
 
 /* ---------------------------------------------------------------------------
-   users.sgit.ai additions.
+   user.sgit.ai additions.
    --------------------------------------------------------------------------- */
 /* a status chip: what runs today, what is designed, what is proposed */
 .st{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;

@@ -3,24 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The lab: passkey to door, on this origin, users.sgit.ai</title>
-<meta name="description" content="Six cards you can press: check this browser, make a passkey for users.sgit.ai with the PRF extension, get the 32 bytes, derive a door's address and sgit's keys from them, make a recovery code, and run the newsroom's test vectors against this site's copy of the derivation. It writes nothing to any server.">
-<link rel="canonical" href="https://users.sgit.ai/lab/index.html">
+<title>The lab: passkey to door, on this origin, user.sgit.ai</title>
+<meta name="description" content="Six cards you can press: check this browser, make a passkey for user.sgit.ai with the PRF extension, get the 32 bytes, derive a door's address and sgit's keys from them, make a recovery code, and run the newsroom's test vectors against this site's copy of the derivation. It writes nothing to any server.">
+<link rel="canonical" href="https://user.sgit.ai/lab/index.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="users.sgit.ai">
-<meta property="og:url" content="https://users.sgit.ai/lab/index.html">
+<meta property="og:site_name" content="user.sgit.ai">
+<meta property="og:url" content="https://user.sgit.ai/lab/index.html">
 <meta property="og:title" content="The lab: passkey to door, on this origin">
-<meta property="og:description" content="The first workflow, sign in where you already are, as far as the door's address, on users.sgit.ai, with nothing sent to any server.">
+<meta property="og:description" content="The first workflow, sign in where you already are, as far as the door's address, on user.sgit.ai, with nothing sent to any server.">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 
 <nav class="site"><div class="row">
-  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="brand" href="../index.html">user<span>.sgit.ai</span></a>
   <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
   <span class="stage-pill">client side, by design</span>
-  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.1</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
   <div class="nav-items">
     <div class="ni ni-has">
@@ -75,9 +75,9 @@
 </div></nav>
 
 <main class="doc">
-<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the lab</div>
+<div class="crumb"><a href="../index.html">user.sgit.ai</a> / the lab</div>
 <h1>The lab: passkey to door, on this origin</h1>
-<p class="lead">The first workflow, <a href="../workflows/index.html#w1">sign in where you already are</a>, as far as it can go without a server: a passkey for <code>users.sgit.ai</code> with the PRF extension, the 32 bytes, the door's address and sgit's keys derived from them, a recovery code, and the newsroom's test vectors run through this site's own copy of the derivation. Every card says what it did in the log at the foot.</p>
+<p class="lead">The first workflow, <a href="../workflows/index.html#w1">sign in where you already are</a>, as far as it can go without a server: a passkey for <code>user.sgit.ai</code> with the PRF extension, the 32 bytes, the door's address and sgit's keys derived from them, a recovery code, and the newsroom's test vectors run through this site's own copy of the derivation. Every card says what it did in the log at the foot.</p>
 
 <div class="warnbox"><b>This page writes nothing to any server.</b> It talks to your passkey store for the gesture and to nothing else: no vault is created, no door is looked for, no byte of yours leaves this page. The only lasting effect is a passkey in your store, named as you choose, which you can delete there. The code is <a href="../assets/door.js">assets/door.js</a>, vendored from the newsroom's with the relying party made a parameter, and <a href="../assets/lab.js">assets/lab.js</a>. No script on this origin comes from anywhere else.</div>
 
@@ -87,12 +87,12 @@
 <div class="out" id="out1"></div></div>
 
 <div class="labcard" id="c2"><h3>2 · Make a passkey for this site</h3>
-<p>A discoverable credential for <code>users.sgit.ai</code> exactly, user verification required, with the PRF extension asked for, under a user handle this page chooses at random and a display name for the role. Your store may offer a choice of where to keep it: iCloud Keychain, Google Password Manager, a phone by QR, a hardware key. Where it lives decides where the account goes.</p>
-<div class="row"><input type="text" id="pkname" placeholder="a name for the role, e.g. users.sgit.ai · reader"><button id="b2">Make the passkey</button></div>
+<p>A discoverable credential for <code>user.sgit.ai</code> exactly, user verification required, with the PRF extension asked for, under a user handle this page chooses at random and a display name for the role. Your store may offer a choice of where to keep it: iCloud Keychain, Google Password Manager, a phone by QR, a hardware key. Where it lives decides where the account goes.</p>
+<div class="row"><input type="text" id="pkname" placeholder="a name for the role, e.g. user.sgit.ai · reader"><button id="b2">Make the passkey</button></div>
 <div class="out" id="out2"></div></div>
 
 <div class="labcard" id="c3"><h3>3 · Get the bytes</h3>
-<p>One gesture. The page asks the store for the passkey for this site with the fixed public input <code>SHA-256("users.sgit.ai/door/v1")</code>, and the authenticator returns 32 bytes only it can compute. The card shows a fingerprint of them and the path the browser reports. The same passkey gives the same bytes on every device it syncs to, through the same kind of path; a phone over QR can give different bytes, and then the design gives that path a door of its own.</p>
+<p>One gesture. The page asks the store for the passkey for this site with the fixed public input <code>SHA-256("user.sgit.ai/door/v1")</code>, and the authenticator returns 32 bytes only it can compute. The card shows a fingerprint of them and the path the browser reports. The same passkey gives the same bytes on every device it syncs to, through the same kind of path; a phone over QR can give different bytes, and then the design gives that path a door of its own.</p>
 <div class="row"><button id="b3">Get the bytes</button></div>
 <div class="out" id="out3"></div></div>
 
@@ -137,11 +137,11 @@
 
 <footer class="site"><div class="cols">
   <div>
-    <div class="brandline">users<span>.sgit.ai</span></div>
+    <div class="brandline">user<span>.sgit.ai</span></div>
     <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
     <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
     <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
-    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.1</a> · <a href="../admin/index.html">engineering</a></p>
   </div>
   <div>
     <h4>The account</h4>

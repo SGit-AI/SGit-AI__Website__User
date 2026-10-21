@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Comms: tasks and requests, users.sgit.ai</title>
-<meta name="description" content="The state of play on users.sgit.ai: the questions only the project lead can answer, the open work on the site, and the questions it carries unresolved on purpose.">
-<link rel="canonical" href="https://users.sgit.ai/admin/comms.html">
+<title>Comms: tasks and requests, user.sgit.ai</title>
+<meta name="description" content="The state of play on user.sgit.ai: the questions only the project lead can answer, the open work on the site, and the questions it carries unresolved on purpose.">
+<link rel="canonical" href="https://user.sgit.ai/admin/comms.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="users.sgit.ai">
-<meta property="og:url" content="https://users.sgit.ai/admin/comms.html">
+<meta property="og:site_name" content="user.sgit.ai">
+<meta property="og:url" content="https://user.sgit.ai/admin/comms.html">
 <meta property="og:title" content="Comms: tasks and requests">
 <meta property="og:description" content="Asks back to the project lead, open work, and published unresolved questions.">
 <meta name="twitter:card" content="summary">
@@ -17,10 +17,10 @@
 <body>
 
 <nav class="site"><div class="row">
-  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="brand" href="../index.html">user<span>.sgit.ai</span></a>
   <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
   <span class="stage-pill">client side, by design</span>
-  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.1</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
   <div class="nav-items">
     <div class="ni ni-has">
@@ -75,7 +75,7 @@
 </div></nav>
 
 <main class="doc">
-<div class="crumb"><a href="../index.html">users.sgit.ai</a> / <a href="index.html">admin</a> / comms</div>
+<div class="crumb"><a href="../index.html">user.sgit.ai</a> / <a href="index.html">admin</a> / comms</div>
 <h1>Comms: tasks and requests</h1>
 <p class="lead">The state of play on this site, kept here rather than in a chat message. Numbered so a reply can refer to an item without quoting it. As of <span class="asof">21 Oct 2026</span>.</p>
 
@@ -83,12 +83,12 @@
 <div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Ask</th><th>Why it needs you</th><th>Status</th></tr></thead>
   <tbody>
-    <tr><td><b>N1</b></td><td><b>The name.</b> The billing article leaves it open: <code>user.sgit.ai</code> and <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> and <code>api.billing.sgit.ai</code> so others can use it easily. The repository is <code>SGit-AI__Website__User</code>; this site is at <code>users.sgit.ai</code>. Is <code>users</code> the name, and does billing live here or on a site of its own?</td><td>The CNAME, the relying party of every passkey made here, and the network directory entry all follow from it, and a passkey made for one host does not answer another.</td><td class="t-need"><b>Blocking the lab's first real door</b></td></tr>
+    <tr><td><b>N1</b></td><td><b>The name.</b> The billing article left it open: <code>user.sgit.ai</code> and <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> and <code>api.billing.sgit.ai</code>. <b>Answered on 21 October 2026: <code>user.sgit.ai</code></b>, the first of the two, mapped to this repository with GitHub Pages. v0.1.0 was built as <code>users.sgit.ai</code> and never deployed under that name; v0.1.1 renamed it. Whether the billing part later stands on its own at <code>billing.sgit.ai</code>, so others can use it, was not part of the answer and stays an option.</td><td>The CNAME, the relying party of every passkey made here, and the network directory entry all follow from it, and a passkey made for one host does not answer another.</td><td class="t-done"><b>Answered</b></td></tr>
     <tr><td><b>N2</b></td><td><b>Who creates the first vault, and with whose access key?</b> The account model has the user paste an access key once; the billing article asks whether the service should make a user's first vault for them when they first log in.</td><td>It decides whether a new user needs anything from us before they have an account, which is the whole point of the design.</td><td class="t-open"><b>Open</b></td></tr>
-    <tr><td><b>N3</b></td><td><b>Is this site the key hub?</b> Two ways across sites are named: a hub that holds the master and hands each site the key to its own vault after a pop-up, or Related Origin Requests. If users.sgit.ai is the hub, it is the strictest origin in the network and every sibling connects to it; if not, each site keeps its own relying party and the hub is secrets.sgit.ai.</td><td>A design choice with a security boundary in it. Both are consistent with the articles; neither is decided.</td><td class="t-open"><b>Open</b></td></tr>
+    <tr><td><b>N3</b></td><td><b>Is this site the key hub?</b> Two ways across sites are named: a hub that holds the master and hands each site the key to its own vault after a pop-up, or Related Origin Requests. If user.sgit.ai is the hub, it is the strictest origin in the network and every sibling connects to it; if not, each site keeps its own relying party and the hub is secrets.sgit.ai.</td><td>A design choice with a security boundary in it. Both are consistent with the articles; neither is decided.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>N4</b></td><td><b>Should the upload server accept unvalidated credit?</b> Where usage costs real money, it may want only validated credit, or a small amount on top.</td><td>A commercial call, from the article's own open questions.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>N5</b></td><td><b>How anonymous is the usage</b> that flows into the admin vault? Enough to bill, and no more; but what is enough?</td><td>A privacy boundary only the owner can set.</td><td class="t-open"><b>Open</b></td></tr>
-    <tr><td><b>N6</b></td><td><b>Which workflows should this site run itself</b>, beyond the lab? Today it describes, and the newsroom does. Making a vault here needs the vendored library (T1) and an access key in memory, which needs N1 answered first.</td><td>Scope: a reference site, or the account's home.</td><td class="t-open"><b>Open</b></td></tr>
+    <tr><td><b>N6</b></td><td><b>Which workflows should this site run itself</b>, beyond the lab? Today it describes, and the newsroom does. Making a vault here needs the vendored library (T1) and an access key in memory; the relying party is now settled as <code>user.sgit.ai</code>.</td><td>Scope: a reference site, or the account's home.</td><td class="t-open"><b>Open</b></td></tr>
   </tbody>
 </table></div>
 
@@ -96,12 +96,12 @@
 <div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Task</th><th>Status</th></tr></thead>
   <tbody>
-    <tr><td><b>T1</b></td><td>Vendor the vault UI library (the twelve files the newsroom pins at <code>/assets/vendor/sg-vault/v0.2.3/</code>) into this repository at a known commit, with a VENDOR.md, so the lab can make a door, a master and a reader vault on this origin. Pinned, never edited, served from here; the gate already refuses any other origin.</td><td class="t-open"><b>Open, after N1</b></td></tr>
+    <tr><td><b>T1</b></td><td>Vendor the vault UI library (the twelve files the newsroom pins at <code>/assets/vendor/sg-vault/v0.2.3/</code>) into this repository at a known commit, with a VENDOR.md, so the lab can make a door, a master and a reader vault on this origin. Pinned, never edited, served from here; the gate already refuses any other origin.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T2</b></td><td>Drive the lab in Chromium with a virtual authenticator with PRF, as the newsroom's <code>test_pane.mjs</code> does, so the gesture is tested and not only the derivation.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T3</b></td><td>Write the billing vault's record formats as a schema rather than a sketch: activity, claims, validations, refunds and disputes, each with what signs it.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T4</b></td><td>Read Stripe's documentation independently and test the payment-link, <code>client_reference_id</code> and list-events flow from a browser with a restricted read-only key, in a test account.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T5</b></td><td>Run <a href="build/check_siblings.py">check_siblings.py</a> and publish the result here with its date, before the next release.</td><td class="t-open"><b>Open</b></td></tr>
-    <tr><td><b>T6</b></td><td>Ask sgit.ai's Cartographer to add this site to the network directory, once N1 settles the name.</td><td class="t-open"><b>Open, after N1</b></td></tr>
+    <tr><td><b>T6</b></td><td>Ask sgit.ai's Cartographer to add <code>user.sgit.ai</code> to the network directory.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T7</b></td><td>Give every page a markdown twin, as sgit.ai does, rather than only the front page.</td><td class="t-open"><b>Open</b></td></tr>
     <tr><td><b>T8</b></td><td>First release: the pipeline, the pages, the agent surface, the account model, the ten workflows, the billing proposal, and a lab that derives a door on this origin with nothing sent anywhere.</td><td class="t-done"><b>Done</b></td></tr>
   </tbody>
@@ -124,11 +124,11 @@
 
 <footer class="site"><div class="cols">
   <div>
-    <div class="brandline">users<span>.sgit.ai</span></div>
+    <div class="brandline">user<span>.sgit.ai</span></div>
     <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
     <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
     <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
-    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.1</a> · <a href="../admin/index.html">engineering</a></p>
   </div>
   <div>
     <h4>The account</h4>

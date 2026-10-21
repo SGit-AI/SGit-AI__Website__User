@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// users.sgit.ai pre-release gate. Run from anywhere: node admin/build/validate.js
+// user.sgit.ai pre-release gate. Run from anywhere: node admin/build/validate.js
 // Checks, in order:
 //   1. version agreement: admin/build/version.txt vs every page's version badge,
 //      the versions table, llms.txt, llms-full.txt and index.md

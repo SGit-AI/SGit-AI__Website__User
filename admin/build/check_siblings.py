@@ -21,7 +21,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SKIP = {"users.sgit.ai"}
+SKIP = {"user.sgit.ai"}
 PATTERN = re.compile(r'https://((?:[a-z0-9-]+\.)?sgit\.ai)')
 
 
@@ -36,7 +36,7 @@ def hosts():
 
 def probe(host):
     req = urllib.request.Request(f"https://{host}/", method="HEAD",
-                                 headers={"User-Agent": "users.sgit.ai link check"})
+                                 headers={"User-Agent": "user.sgit.ai link check"})
     try:
         with urllib.request.urlopen(req, timeout=20) as r:
             return r.status

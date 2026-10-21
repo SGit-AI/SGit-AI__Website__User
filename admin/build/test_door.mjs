@@ -30,9 +30,9 @@ const rt = door.hex(door.recoveryBytes(r.shown)) === door.hex(r.bytes)
 bad += !rt
 console.log(`  ${rt ? 'ok ' : '!! '} recovery code round-trips (${r.shown})`)
 // a different relying party gives a different door from the same bytes
-const d2 = await door.doorFrom(door.unhex(v.prf_hex), 0, 'users.sgit.ai')
+const d2 = await door.doorFrom(door.unhex(v.prf_hex), 0, 'user.sgit.ai')
 const diff = d2.vaultId !== d.vaultId && d2.seed !== d.seed
 bad += !diff
-console.log(`  ${diff ? 'ok ' : '!! '} rp users.sgit.ai derives a different door (${d2.vaultId}) from rp ${v.rp} (${d.vaultId})`)
+console.log(`  ${diff ? 'ok ' : '!! '} rp user.sgit.ai derives a different door (${d2.vaultId}) from rp ${v.rp} (${d.vaultId})`)
 console.log(bad ? `test_door: ${bad} FAILED` : `test_door: OK, ${checks.length} vector values agree with sgit ${v.sgit_version}, ${k.msRead + k.msWrite} ms of PBKDF2`)
 process.exit(bad ? 1 : 0)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://users.sgit.ai/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/account/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/workflows/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/billing/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/lab/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/shipped/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/sources/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/network/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/admin/comms.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/admin/index.html</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://users.sgit.ai/admin/versions.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/account/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/workflows/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/billing/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/lab/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/shipped/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/sources/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/network/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/admin/comms.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/admin/index.html</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://user.sgit.ai/admin/versions.html</loc><lastmod>2026-10-21</lastmod></url>
 </urlset>

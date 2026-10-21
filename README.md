@@ -1,4 +1,4 @@
-# users.sgit.ai, the account is a vault, and the user holds it
+# user.sgit.ai, the account is a vault, and the user holds it
 
 > No sign-in to the site, no account database, no server of ours that can read a
 > thing. A passkey opens a door, the door opens a master, the master holds the
@@ -11,7 +11,7 @@ they are built on newsroom.sgit.ai, the billing design that follows ("the user
 keeps the meter"), and a lab that derives a door from a passkey on this origin
 with nothing sent to any server.
 
-Live site: https://users.sgit.ai (GitHub Pages). Nothing on it runs on a server
+Live site: https://user.sgit.ai (GitHub Pages). Nothing on it runs on a server
 of ours; the workflows that run today run on https://newsroom.sgit.ai.
 
 ## Structure

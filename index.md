@@ -1,8 +1,8 @@
-# users.sgit.ai, the account is a vault, and the user holds it
+# user.sgit.ai, the account is a vault, and the user holds it
 
 > No sign-in to the site, no account database, no server of ours that can read a thing. A passkey opens a door, the door opens a master, the master holds the keys. The user's browser keeps the record of what they did and the meter of what it cost, and both travel with them.
 
-*Source: <https://users.sgit.ai/index.html> · site v0.1.0 · this file is the front page's markdown twin. The site index for agents is [llms.txt](llms.txt); the whole site in one fetch is [llms-full.txt](llms-full.txt).*
+*Source: <https://user.sgit.ai/index.html> · site v0.1.1 · this file is the front page's markdown twin. The site index for agents is [llms.txt](llms.txt); the whole site in one fetch is [llms-full.txt](llms-full.txt).*
 
 ---
 
@@ -29,7 +29,7 @@ This site collects the client-side user workflows of the sgit.ai network as they
 | One account across every *.sgit.ai site | later, two ways named | /workflows/ (9) |
 | Messages between vaults, on append lanes and PKI | proposed; the transport exists | /workflows/ (10) |
 | A temporary AWS session kept in the user's vault | proposed | /workflows/ (10) |
-| users.sgit.ai itself | v0.1.0 | Publishes the design; runs nothing on a server. The lab derives a door on this origin and writes nowhere |
+| user.sgit.ai itself | v0.1.0 | Publishes the design; runs nothing on a server. The lab derives a door on this origin and writes nowhere |
 
 ## Ten client-side user workflows
 
@@ -54,7 +54,7 @@ This site collects the client-side user workflows of the sgit.ai network as they
 ## The rules this origin keeps
 
 1. **No third-party script, on any page.** Enforced by the pre-release gate.
-2. **The relying party is this host, exactly.** A passkey for users.sgit.ai, never for sgit.ai.
+2. **The relying party is this host, exactly.** A passkey for user.sgit.ai, never for sgit.ai.
 3. **Read keys are printed; vault keys never are.** The gate greps the tree for key shapes.
 4. **Local storage stays primary; the vault is a copy the user keeps current.** Nothing commits on its own.
 5. **Records, never totals.** Balance is recomputed every time it is shown.

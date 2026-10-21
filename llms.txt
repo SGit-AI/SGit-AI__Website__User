@@ -1,11 +1,11 @@
-# users.sgit.ai, the account is a vault, and the user holds it
+# user.sgit.ai, the account is a vault, and the user holds it
 
 > No sign-in to the site, no account database, no server of ours that can read a
 > thing. A passkey opens a door, the door opens a master, the master holds the
 > keys. The user's browser keeps the record of what they did and the meter of
 > what it cost, and both travel with them.
 
-Site version: v0.1.0 (21 October 2026). All content CC BY 4.0.
+Site version: v0.1.1 (21 October 2026). All content CC BY 4.0.
 
 ## What this site is
 
@@ -18,7 +18,7 @@ newsroom.sgit.ai, 21 October 2026, the article that proposes this site).
 
 This site DESCRIBES; newsroom.sgit.ai DOES. Every workflow marked "runs" runs
 there, as a beta with one reader. This site runs one thing itself: a lab that
-makes a passkey for users.sgit.ai with the PRF extension, gets the 32 bytes,
+makes a passkey for user.sgit.ai with the PRF extension, gets the 32 bytes,
 derives a door's address and sgit's keys from them, and writes nothing to any
 server.
 
@@ -32,7 +32,7 @@ server.
 - No script or stylesheet on this origin is loaded from any other origin; the
   pre-release gate fails the build otherwise. This is the passkey design's one
   rule, made structural.
-- Passkeys made by the lab are registered for users.sgit.ai exactly, never for
+- Passkeys made by the lab are registered for user.sgit.ai exactly, never for
   sgit.ai.
 - Read keys may be printed on a page; vault keys and access keys never are, and
   the gate greps the tree for their shapes.
@@ -41,7 +41,8 @@ server.
   (argued, with open questions listed), "later" (named, ways given).
 - The billing design is a PROPOSAL. Nothing in it is built. The record formats
   are sketches. The Stripe flow is untested.
-- The site's own name is UNDECIDED (user / users / billing): comms N1.
+- The site is user.sgit.ai, chosen 21 October 2026 from the two names the
+  billing article proposed (comms N1). A separate billing.sgit.ai stays an option.
 
 ## The pages, each with its single most important fact
 
@@ -79,7 +80,7 @@ server.
   questions, the first being where it lives.
 
 /lab/index.html, THE LAB
-  Six cards: this browser; make a passkey for users.sgit.ai with PRF; get the
+  Six cards: this browser; make a passkey for user.sgit.ai with PRF; get the
   bytes (fingerprint and path shown); derive the door (address, ref id, index
   id, PBKDF2 timings); a recovery code; the newsroom's test vectors against this
   site's copy of the derivation. Writes nothing to any server. Does not vendor
@@ -122,7 +123,7 @@ https://subscriptions.sgit.ai, the commercial model; the repository this site's
   tooling was copied from
 https://llms.sgit.ai, calling a model with no API key: a key for one purpose
 https://api.send.sgit.ai, the rule of independent, versioned releases any
-  api.users.sgit.ai would follow
+  api.user.sgit.ai would follow
 
 ## Code
 

@@ -1,4 +1,4 @@
-# Deploys users.sgit.ai (this repo's working tree) to GitHub Pages, with the
+# Deploys user.sgit.ai (this repo's working tree) to GitHub Pages, with the
 # same pipeline order as SGit-AI/SGit-AI__Website, SGit-AI/SGit-AI__Website__PKI and
 # SGit-AI/SGit-AI__Website__NFRs: validate → tag → publish.
 #

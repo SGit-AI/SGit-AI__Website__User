@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>users.sgit.ai, the account is a vault, and the user holds it</title>
+<title>user.sgit.ai, the account is a vault, and the user holds it</title>
 <meta name="description" content="An account with no server: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. The client-side user workflows of the sgit.ai network, what runs today, what is proposed, and a lab that derives a door on this origin.">
-<link rel="canonical" href="https://users.sgit.ai/index.html">
+<link rel="canonical" href="https://user.sgit.ai/index.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="users.sgit.ai">
-<meta property="og:url" content="https://users.sgit.ai/index.html">
-<meta property="og:title" content="users.sgit.ai, the account is a vault, and the user holds it">
+<meta property="og:site_name" content="user.sgit.ai">
+<meta property="og:url" content="https://user.sgit.ai/index.html">
+<meta property="og:title" content="user.sgit.ai, the account is a vault, and the user holds it">
 <meta property="og:description" content="No sign-in to the site, no account database, no server of ours that can read a thing. Ten client-side user workflows, the billing design that follows from them, and a lab.">
 <meta name="twitter:card" content="summary">
 <link rel="alternate" type="text/markdown" href="index.md" title="This page as markdown">
@@ -18,10 +18,10 @@
 <body>
 
 <nav class="site"><div class="row">
-  <a class="brand" href="index.html">users<span>.sgit.ai</span></a>
+  <a class="brand" href="index.html">user<span>.sgit.ai</span></a>
   <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
   <span class="stage-pill">client side, by design</span>
-  <a class="ver" href="admin/versions.html" title="Site release history">v0.1.0</a>
+  <a class="ver" href="admin/versions.html" title="Site release history">v0.1.1</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
   <div class="nav-items">
     <div class="ni ni-has">
@@ -115,7 +115,7 @@
         <tr><td>One account across every <code>*.sgit.ai</code> site</td><td><span class="st st-open">later, two ways named</span></td><td><a href="workflows/index.html#w9">Workflow 9</a></td></tr>
         <tr><td>Messages between vaults, on append lanes and PKI</td><td><span class="st st-proposed">proposed</span></td><td><a href="workflows/index.html#w10">Workflow 10</a>; the transport exists</td></tr>
         <tr><td>A temporary AWS session kept in the user's vault</td><td><span class="st st-proposed">proposed</span></td><td><a href="workflows/index.html#w10">Workflow 10</a></td></tr>
-        <tr><td><b>users.sgit.ai itself</b></td><td><span class="st st-runs">v0.1.0</span></td><td>Publishes the design; runs nothing on a server. <a href="lab/index.html">The lab</a> derives a door on this origin and writes nowhere</td></tr>
+        <tr><td><b>user.sgit.ai itself</b></td><td><span class="st st-runs">v0.1.0</span></td><td>Publishes the design; runs nothing on a server. <a href="lab/index.html">The lab</a> derives a door on this origin and writes nowhere</td></tr>
       </tbody>
     </table></div>
     <p class="cap">Every row links to the evidence it rests on; <a href="shipped/index.html">what this site ships</a> keeps the same table with its sources, and wins if the two ever disagree.</p>
@@ -155,8 +155,8 @@
   <p class="blurb">A site that will one day hold the door to a user's master vault has to be as strict as the strictest page on it. These are the rules, and the first is enforced by the build rather than by intention.</p>
   <div class="split">
     <div class="ladder">
-      <div class="cap"><span class="capnum">1</span><h3>No third-party script, on any page</h3><p>Browser storage is per origin, so a script on one page can read what another page kept. Every script and stylesheet on users.sgit.ai is served from users.sgit.ai, and <a href="admin/index.html#validate">the pre-release gate</a> fails the build on any other origin. The vault library, when it is vendored here, will be pinned at a known commit and never edited.</p></div>
-      <div class="cap"><span class="capnum">2</span><h3>The relying party is this host, exactly</h3><p>A passkey registered for <code>sgit.ai</code> would answer every <code>*.sgit.ai</code> site, and any of them could ask it for PRF bytes. The lab registers for <code>users.sgit.ai</code> and nothing wider. How one account travels across sites is <a href="workflows/index.html#w9">a named question</a>, not an accident of scope.</p></div>
+      <div class="cap"><span class="capnum">1</span><h3>No third-party script, on any page</h3><p>Browser storage is per origin, so a script on one page can read what another page kept. Every script and stylesheet on user.sgit.ai is served from user.sgit.ai, and <a href="admin/index.html#validate">the pre-release gate</a> fails the build on any other origin. The vault library, when it is vendored here, will be pinned at a known commit and never edited.</p></div>
+      <div class="cap"><span class="capnum">2</span><h3>The relying party is this host, exactly</h3><p>A passkey registered for <code>sgit.ai</code> would answer every <code>*.sgit.ai</code> site, and any of them could ask it for PRF bytes. The lab registers for <code>user.sgit.ai</code> and nothing wider. How one account travels across sites is <a href="workflows/index.html#w9">a named question</a>, not an accident of scope.</p></div>
       <div class="cap"><span class="capnum">3</span><h3>Read keys are printed; vault keys never are</h3><p>A read key is derived one way and cannot be turned into write access, so it belongs in a page where a human can copy it. A vault key is write access and never touches a site. The gate greps the whole tree for key shapes.</p></div>
       <div class="cap"><span class="capnum">4</span><h3>Local storage stays primary; the vault is a copy the user keeps current</h3><p>Nothing commits on its own. The number of commits is the number of times a person pressed the button. Automatic sync is a setting for later, once the cost of one is known.</p></div>
       <div class="cap"><span class="capnum">5</span><h3>Records, never totals</h3><p>Reads, top-ups, claims and validations go in raw. Balance is recomputed from the records every time it is shown. A total copied from one device is wrong the moment a second device exists.</p></div>
@@ -166,11 +166,11 @@
 
 <footer class="site"><div class="cols">
   <div>
-    <div class="brandline">users<span>.sgit.ai</span></div>
+    <div class="brandline">user<span>.sgit.ai</span></div>
     <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
     <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
     <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
-    <p class="verline">site <a href="admin/versions.html">v0.1.0</a> · <a href="admin/index.html">engineering</a> · <a href="index.md">this page as markdown</a></p>
+    <p class="verline">site <a href="admin/versions.html">v0.1.1</a> · <a href="admin/index.html">engineering</a> · <a href="index.md">this page as markdown</a></p>
   </div>
   <div>
     <h4>The account</h4>

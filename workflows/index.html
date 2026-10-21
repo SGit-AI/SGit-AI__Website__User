@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ten client-side user workflows, users.sgit.ai</title>
+<title>Ten client-side user workflows, user.sgit.ai</title>
 <meta name="description" content="The user management of a site with no server, as ten workflows: sign in where you already are, create the account, open or connect, which device is this, update the vault, read and pay, top up with credit now and validation later, a new path or a lost device, across sites, and agents, messages and sessions. Each says what the user does, what the browser does, what leaves it, and where it stands.">
-<link rel="canonical" href="https://users.sgit.ai/workflows/index.html">
+<link rel="canonical" href="https://user.sgit.ai/workflows/index.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="users.sgit.ai">
-<meta property="og:url" content="https://users.sgit.ai/workflows/index.html">
+<meta property="og:site_name" content="user.sgit.ai">
+<meta property="og:url" content="https://user.sgit.ai/workflows/index.html">
 <meta property="og:title" content="Ten client-side user workflows">
 <meta property="og:description" content="What the user does, what their browser does, what leaves the browser, and where each stands: runs, lab-proven, designed, or proposed.">
 <meta name="twitter:card" content="summary">
@@ -17,10 +17,10 @@
 <body>
 
 <nav class="site"><div class="row">
-  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="brand" href="../index.html">user<span>.sgit.ai</span></a>
   <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
   <span class="stage-pill">client side, by design</span>
-  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.1</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
   <div class="nav-items">
     <div class="ni ni-has">
@@ -75,7 +75,7 @@
 </div></nav>
 
 <main class="doc">
-<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the workflows</div>
+<div class="crumb"><a href="../index.html">user.sgit.ai</a> / the workflows</div>
 <h1>Ten client-side user workflows</h1>
 <p class="lead">User management on a site with no server of its own is not one feature. It is a set of things a person does, each of which their browser has to do entirely on its own, against a passkey store for the gesture and a vault server for ciphertext. These are the ten, as they run on <a href="https://newsroom.sgit.ai">newsroom.sgit.ai</a> or as they are designed, on <span class="asof">21 Oct 2026</span>. Each says what the user does, what the browser does, what leaves the browser, and where it stands.</p>
 
@@ -152,7 +152,7 @@
 <div class="cap" id="w9"><span class="capnum">9</span><h3>Across sites</h3>
 <p><b>What the user does, today.</b> Nothing yet. The master is bound to the newsroom: its passkey is registered for <code>newsroom.sgit.ai</code> exactly, and a passkey for <code>sgit.ai</code> is ruled out, because any <code>*.sgit.ai</code> site could ask it for bytes and every one would have to be as strict as the strictest.</p>
 <p><b>What is designed.</b> The master already lists keys by site and purpose, and the billing article's promise rests on it: &ldquo;because the user's data lives in their vault, it travels with them across our sites: what they read, what they set, what they bought, their keys and their preferences.&rdquo; Two ways to get there are named, for later. A <b>key hub</b>, in the manner of <a href="https://secrets.sgit.ai">secrets.sgit.ai</a>, holds the master and hands a site only the key to its own vault, after the user approves it in a pop-up, the way a wallet connects to a site. Or <b>WebAuthn Related Origin Requests</b> let one passkey work on a list of related sites, in Chrome and Safari today.</p>
-<p><b>The question this site carries.</b> Is users.sgit.ai the hub, the origin that holds the door and hands each sibling the key to its own vault? Or does each site keep its own relying party and the hub stays at secrets.sgit.ai? Both are consistent with the two articles; neither has been decided. It is <a href="../admin/comms.html#asks">N3 on the comms page</a>, put to the project lead rather than answered for tidiness.</p>
+<p><b>The question this site carries.</b> Is user.sgit.ai the hub, the origin that holds the door and hands each sibling the key to its own vault? Or does each site keep its own relying party and the hub stays at secrets.sgit.ai? Both are consistent with the two articles; neither has been decided. It is <a href="../admin/comms.html#asks">N3 on the comms page</a>, put to the project lead rather than answered for tidiness.</p>
 <span class="from"><span class="st st-open">later</span> Named in <a href="https://sgit.ai/articles/the-passkey-opens-the-vault.html">The passkey opens the vault</a>, part two, and in <a href="../billing/index.html#user">what the user gets</a>.</span></div>
 
 <div class="cap" id="w10"><span class="capnum">10</span><h3>Agents, messages and sessions</h3>
@@ -182,11 +182,11 @@
 
 <footer class="site"><div class="cols">
   <div>
-    <div class="brandline">users<span>.sgit.ai</span></div>
+    <div class="brandline">user<span>.sgit.ai</span></div>
     <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
     <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
     <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
-    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.1</a> · <a href="../admin/index.html">engineering</a></p>
   </div>
   <div>
     <h4>The account</h4>
