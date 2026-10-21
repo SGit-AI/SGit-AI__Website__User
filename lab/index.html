@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The lab: passkey to door, on this origin, users.sgit.ai</title>
+<meta name="description" content="Six cards you can press: check this browser, make a passkey for users.sgit.ai with the PRF extension, get the 32 bytes, derive a door's address and sgit's keys from them, make a recovery code, and run the newsroom's test vectors against this site's copy of the derivation. It writes nothing to any server.">
+<link rel="canonical" href="https://users.sgit.ai/lab/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/lab/index.html">
+<meta property="og:title" content="The lab: passkey to door, on this origin">
+<meta property="og:description" content="The first workflow, sign in where you already are, as far as the door's address, on users.sgit.ai, with nothing sent to any server.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="../billing/index.html#server">The one server left</a>
+      <a class="sl" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl here" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl here" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl here" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the lab</div>
+<h1>The lab: passkey to door, on this origin</h1>
+<p class="lead">The first workflow, <a href="../workflows/index.html#w1">sign in where you already are</a>, as far as it can go without a server: a passkey for <code>users.sgit.ai</code> with the PRF extension, the 32 bytes, the door's address and sgit's keys derived from them, a recovery code, and the newsroom's test vectors run through this site's own copy of the derivation. Every card says what it did in the log at the foot.</p>
+
+<div class="warnbox"><b>This page writes nothing to any server.</b> It talks to your passkey store for the gesture and to nothing else: no vault is created, no door is looked for, no byte of yours leaves this page. The only lasting effect is a passkey in your store, named as you choose, which you can delete there. The code is <a href="../assets/door.js">assets/door.js</a>, vendored from the newsroom's with the relying party made a parameter, and <a href="../assets/lab.js">assets/lab.js</a>. No script on this origin comes from anywhere else.</div>
+
+<div class="labcard" id="c1"><h3>1 · This browser</h3>
+<p>What the page can know before it asks for anything. Whether PRF works cannot be known until a passkey is made: the store says then, and the page never guesses.</p>
+<div class="row"><button id="b1" class="quiet">Check again</button></div>
+<div class="out" id="out1"></div></div>
+
+<div class="labcard" id="c2"><h3>2 · Make a passkey for this site</h3>
+<p>A discoverable credential for <code>users.sgit.ai</code> exactly, user verification required, with the PRF extension asked for, under a user handle this page chooses at random and a display name for the role. Your store may offer a choice of where to keep it: iCloud Keychain, Google Password Manager, a phone by QR, a hardware key. Where it lives decides where the account goes.</p>
+<div class="row"><input type="text" id="pkname" placeholder="a name for the role, e.g. users.sgit.ai · reader"><button id="b2">Make the passkey</button></div>
+<div class="out" id="out2"></div></div>
+
+<div class="labcard" id="c3"><h3>3 · Get the bytes</h3>
+<p>One gesture. The page asks the store for the passkey for this site with the fixed public input <code>SHA-256("users.sgit.ai/door/v1")</code>, and the authenticator returns 32 bytes only it can compute. The card shows a fingerprint of them and the path the browser reports. The same passkey gives the same bytes on every device it syncs to, through the same kind of path; a phone over QR can give different bytes, and then the design gives that path a door of its own.</p>
+<div class="row"><button id="b3">Get the bytes</button></div>
+<div class="out" id="out3"></div></div>
+
+<div class="labcard" id="c4"><h3>4 · Derive the door</h3>
+<p>HKDF from the bytes to a seed, a 256-bit passphrase and an 8-character address; then sgit's own PBKDF2 at 600,000 iterations, once for the read key and once for the write key, the cost the design pays on every cold unlock. The address is where this passkey's door would be. Nothing is fetched: the lab does not ask the vault server whether a door exists there.</p>
+<div class="row"><button id="b4">Derive the door</button></div>
+<div class="out" id="out4"></div></div>
+
+<div class="labcard" id="c5"><h3>5 · A recovery code</h3>
+<p>128 bits as 26 characters of base32, shown in groups of four to be written down, long enough to need no password stretching. It is the ikm of a second door, the one way in on a device where no door opens yet, and the one secret a person ever types.</p>
+<div class="row"><button id="b5">Make a code</button></div>
+<div class="out" id="out5"></div>
+<div class="row"><input type="text" id="rcin" placeholder="or type one, to see which door it derives"><button id="b5b" class="quiet">Derive its door</button></div>
+<div class="out" id="out5b"></div></div>
+
+<div class="labcard" id="c6"><h3 id="vectors">6 · The test vectors, against sgit's Python</h3>
+<p>The newsroom publishes <a href="vectors.json">a fake PRF output and everything derived from it</a>, computed in Python with sgit's own <code>Vault__Crypto</code>, for its relying party <code>newsroom.sgit.ai</code>. This site's copy of the derivation runs the same input with that relying party and compares seven values. It runs when the page opens.</p>
+<div class="row"><button id="b6" class="quiet">Run again</button></div>
+<div class="out" id="out6"></div></div>
+
+<div class="labcard"><h3>Forget</h3>
+<p>Clears the bytes, the door and the keys from this page's memory and the remembered label from this browser. The passkey stays in your store; a site cannot delete a passkey, only you can.</p>
+<div class="row"><button id="bforget" class="quiet">Forget on this device</button></div></div>
+
+<h2>The log</h2>
+<div id="lablog"></div>
+
+<h2 id="not">What this lab does not do</h2>
+<ul>
+  <li><b>It makes no vault.</b> The newsroom's lab goes further: with an access key kept in memory it makes real sgit vaults through the vault library vendored there, a door at its derived address, a master and a reader vault. This site has not vendored the library yet; that is <a href="../admin/comms.html#tasks">T1 on the comms page</a>, and when it is done the rule stays: pinned at a known commit, never edited, served from this origin.</li>
+  <li><b>It does not look for a door.</b> A derived address with nothing at it would mean <em>no door here for this path yet</em>, never an error; the lab stops before the question.</li>
+  <li><b>It makes no key pairs.</b> The identity the brief asks for, a signing pair and an encryption pair made at random and stored in the master, is designed and not built anywhere yet.</li>
+  <li><b>It is not tested by a virtual authenticator yet.</b> The newsroom's pane is driven in Chromium with a virtual authenticator standing in for a synced passkey; this lab's derivation is checked by <a href="../admin/build/test_door.mjs">a Node test</a> against the same vectors, and the gesture itself only by a person. <a href="../admin/comms.html#tasks">T2</a>.</li>
+  <li><b>It says nothing about which path is right.</b> When two paths give different bytes, both need the credential's secret to check against the specification. The lab can say that each path was deterministic and that the two disagreed, and the design gives each a door.</li>
+</ul>
+
+<div class="pagenav">
+  <a href="../billing/index.html">&larr; Billing</a>
+  <a href="../shipped/index.html">What this site ships &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+<script type="module" src="../assets/lab.js"></script>
+</body>
+</html>

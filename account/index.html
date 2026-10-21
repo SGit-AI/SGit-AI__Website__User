@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The account model: door, master, vaults, users.sgit.ai</title>
+<meta name="description" content="The account with no server, piece by piece: the passkey store, the PRF bytes, the door derived from them, the master that is the keyring, the vaults below it, the derivation step by step, every key and who holds it, and the security properties said plainly.">
+<link rel="canonical" href="https://users.sgit.ai/account/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/account/index.html">
+<meta property="og:title" content="The account model: door, master, vaults">
+<meta property="og:description" content="A passkey opens a door, the door opens a master, the master holds the keys. What each piece gives you, the derivation, what is in each vault, and the four parties.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl here" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl here" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl here" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl here" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl here" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="../billing/index.html#server">The one server left</a>
+      <a class="sl" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the account</div>
+<h1>The account model: door, master, vaults</h1>
+<p class="lead">You are already signed in, somewhere else: to Apple on a Mac, to Google in Chrome, to Microsoft on Windows, and that is where your passkeys live. The site does not need you to sign in to it. It asks the passkey store you already use for 32 bytes, computes from them the address and the key of a small door vault, finds the master's key inside, and the master holds everything else. There is no account database because there is no account, only vaults the user can open.</p>
+
+<div class="chain">
+  <div class="box"><b>The passkey store</b>iCloud Keychain, Google Password Manager, Windows Hello, a hardware key. Syncs the passkey between devices. Learns nothing about the vault.<span class="who">chosen long before</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The passkey, with PRF</b>A gesture, a signature, and 32 bytes computed from a secret the authenticator keeps for this site. The same bytes on every device, through the same kind of path.<span class="who">a lock, not an identity</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The door</b>One file, at an address computed from the bytes: the master's key, encrypted under the door's read key, and a record of where the door came from.<span class="who">one per path</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The master</b>The keyring. The keys of the vaults below, by site and purpose; read keys the user was given; the access key; the key pairs; the list of doors.<span class="who">random, made once</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The vaults below</b>The reader vault (activity, one file per device). The billing vault (proposed). A notes vault. Whatever an agent makes for the user.<span class="who">the user's data</span></div>
+</div>
+
+<h2 id="pieces">What each piece actually gives you</h2>
+<p>The pieces are easy to blur, so the passkey article separates them, and this table is its table.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Piece</th><th>What it gives the page</th><th>What it does not give</th></tr></thead>
+  <tbody>
+    <tr><td><b>The account you are already signed in to</b> (Apple, Google, Microsoft)</td><td>Nothing, directly. It syncs your passkey store between your devices, so the passkey you make on one is on the others.</td><td>Anything to the site: not your name, not your email, not that you have an account.</td></tr>
+    <tr><td><b>A passkey for this site</b></td><td>A gesture (touch, face, PIN), a signature, and with PRF, 32 bytes computed from a secret the authenticator keeps for this site and this passkey.</td><td>The bytes to anyone but the page on this site that asked, after the gesture; and not, in 2026, the same bytes by every path.</td></tr>
+    <tr><td><b>The path</b></td><td>How the passkey was reached: the provider on this device, a phone over the hybrid link, a hardware key.</td><td>A guarantee that two paths compute the same bytes.</td></tr>
+    <tr><td><b>The passkey store</b></td><td>Where the passkey lives, and whether it travels.</td><td>Anything about what the bytes are for.</td></tr>
+    <tr><td><b>sgit</b></td><td>Vault keys made in the client (a 24-character passphrase and an 8-character vault id), read and write keys derived from them, ciphertext on the server, files that can be deleted, vaults that can be destroyed.</td><td>A way to find a vault you have no key for; a way to reuse a destroyed id.</td></tr>
+    <tr><td><b>The access key</b></td><td>The right to create vaults and write to them on the vault server. The thing people will buy.</td><td>Any way to read a vault.</td></tr>
+  </tbody>
+</table></div>
+<div class="note"><b>One clarification that matters.</b> &ldquo;The Google passkey&rdquo; is a passkey <em>for this site</em>, registered by this page under this site's name, which your store keeps and syncs. It is not the passkey you use to sign in to Google, and a website cannot get PRF bytes from that one. The site learns a credential id, a public key and, after your gesture, 32 bytes. Not your email, not your name, not which account syncs it.</div>
+
+<h2 id="derivation">The derivation</h2>
+<p>From the bytes to a door, as the newsroom's lab runs it with the relying party <code>newsroom.sgit.ai</code>, and as <a href="../lab/index.html">this site's lab</a> runs it with <code>users.sgit.ai</code>. Only the constant differs.</p>
+<ol>
+  <li><b>The PRF input</b> is a fixed, public value: <code>SHA-256("users.sgit.ai/door/v1")</code>. An input is not a secret; only the authenticator can turn it into the 32 bytes.</li>
+  <li><b>The door seed</b> is <code>HKDF-SHA256(ikm = PRF bytes, salt = SHA-256("users.sgit.ai"), info = "sgit/door/v1")</code>.</li>
+  <li><b>The door's passphrase and vault id</b> are two more HKDF outputs from the seed. The passphrase is the hex of 32 bytes, keeping all 256 bits. The vault id is 8 characters of <code>[a-z0-9]</code> drawn with rejection sampling, so no character is favoured. The id is the door's address.</li>
+  <li><b>The door vault key</b> is the sgit vault key made of those two, and from there sgit's own derivation gives the read and write keys exactly as the command line does: PBKDF2-HMAC-SHA256 at 600,000 iterations, once for each. That is the cost of the design: door, master and reading vault need up to six derivations, about 105 ms each in headless Chromium on a four-core machine, several times slower on a phone, so a cold unlock can spend two to four seconds deriving keys before it fetches anything.</li>
+  <li><b>The recovery door</b> is the same, with the recovery code in place of the PRF bytes: 26 characters of base32, 128 bits, made by the page and shown once.</li>
+  <li><b>Collisions</b> are not a practical worry with 36<sup>8</sup> possible ids, but the page checks: a derived address that already holds something it cannot open is skipped, with a counter in the HKDF info.</li>
+</ol>
+<p>The browser and the command line agree byte for byte: the newsroom publishes <a href="https://newsroom.sgit.ai/passkey/vectors.json">test vectors</a> computed with sgit's own Python, and <a href="../lab/index.html#vectors">this site's lab</a> runs the same derivation through its own copy of the code and compares every value when the page opens.</p>
+
+<h2 id="vaults">What is in each vault</h2>
+<div class="tablewrap"><table>
+  <thead><tr><th>Vault</th><th>Holds</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><b>A door</b></td><td>One file. The master vault's key, encrypted under the door's read key, and a small record: the kind of door (a passkey, or the recovery code), the provider as the browser named it, the path (platform or cross-platform), the credential id, which is public, a device label the reader typed, and the date.</td><td><span class="st st-runs">runs</span></td></tr>
+    <tr><td><b>The master</b></td><td>The keyring. The keys of the vaults below it, by site and purpose. Read keys the user has been given. The access key, pasted once on the first device. The key pairs for this site, a signing pair and an encryption pair, each with a label, a purpose, a date and a status. The list of doors, each with its own vault key, so that from any open door the page can read, rewrite or delete every other door. Since newsroom v0.12.58 also <code>inbox.json</code>, which remembers where a connected browser's batches are filed.</td><td><span class="st st-runs">runs</span> keys; <span class="st st-designed">designed</span> key pairs</td></tr>
+    <tr><td><b>The reader vault</b></td><td>One file per device, rewritten whole on each sync: reads, top-ups, personas, notes, the wire stories seen. <code>activity/account.json</code> written once, with the one starting credit. <code>activity/aliases.json</code> for merged devices. An inbox lane any browser with a link can write to and none can read. A read-only link to the shared viewer vault, so the vault opens as an app in SG/Vault.</td><td><span class="st st-runs">runs</span></td></tr>
+    <tr><td><b>The billing vault</b></td><td>One per user. Activity and claims, signed by the user. Validations, signed by the admin. Its first commit pinned, so every later commit can be checked to descend from it and to be signed by a known key.</td><td><span class="st st-proposed">proposed</span></td></tr>
+    <tr><td><b>The recovery door</b></td><td>The same as a door, with the recovery code as its ikm. The one secret a person ever types, and only on a device where no door opens.</td><td><span class="st st-runs">runs</span></td></tr>
+  </tbody>
+</table></div>
+
+<h3 id="data">The data, as the reader vault lays it out today</h3>
+<pre class="sketch">activity/
+  account.json                  written once: { v, start, symbol, created, created_by }
+  aliases.json                  merged device ids, each mapped to the device it went into
+  devices/
+    nr-3f9a1c2b.json            one per device, rewritten whole on each sync
+    nr-77e0b4d1.json
+
+a device file:
+{ "v": 1,
+  "device":   { "id", "label", "agent", "first_sync", "last_sync", "syncs" },
+  "created":  "the local account's creation time",
+  "reads":    [ { id, at, path, title, kind, topics, price, depth, cost, persona, rating?, declined?, device } ],
+  "topups":   [ { ref, at, credit, source, device } ],
+  "personas": [ { id, preset?, name, created, on[], off[], device } ],
+  "notes":    [ { id, at, kind, path, title, text, quote, sent?, device } ],
+  "wire":     { "seen": { "&lt;story id&gt;": { at } } },
+  "active":   "me" }</pre>
+<p>Every record is the meter's own, unchanged, plus the device that originated it. A record has exactly one author for ever: the device, and a device is a bucket the reader names. The totals are recomputed every time they are shown:</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Figure</th><th>From the records</th></tr></thead>
+  <tbody>
+    <tr><td>reads</td><td>the number of distinct read ids across every device</td></tr>
+    <tr><td>spent</td><td>the sum of <code>cost</code> over those reads (a declined read's cost is 0)</td></tr>
+    <tr><td>declined</td><td>the sum of <code>declined.refunded</code></td></tr>
+    <tr><td>credit</td><td>the sum of <code>credit</code> over top-ups, one per payment reference</td></tr>
+    <tr><td>balance</td><td><code>start</code> + credit &minus; spent</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="paths">A door per path</h2>
+<p>The unit of the design is the path, not the passkey, because of a test. The same Google Password Manager passkey gave the same bytes in Chrome on a Mac and in Safari on an iPhone through the provider on each device, and a different set of bytes, consistently, when an iPad or that same Mac reached the phone by QR code. Apple's forums report the same for iCloud Keychain since late 2024.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Run</th><th>Client</th><th>How the passkey answered</th><th>Bytes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Chrome on a Mac</td><td>Google Password Manager on the Mac, Touch ID</td><td>A</td></tr>
+    <tr><td>2</td><td>Safari on an iPhone</td><td>Google Password Manager on the phone, Face ID</td><td>A</td></tr>
+    <tr><td>3</td><td>Safari on an iPad</td><td>A QR code, scanned by the iPhone; the phone's provider answered</td><td>B</td></tr>
+    <tr><td>4</td><td>Chrome on the same Mac, &ldquo;use a phone, tablet or security key&rdquo;</td><td>A QR code, scanned by the same iPhone</td><td>B</td></tr>
+  </tbody>
+</table></div>
+<p>So whatever produced a distinct set of bytes gets a distinct door, and every door points at the same master and says where it came from. If a provider's fix moves a path's bytes, that path finds no door, says so, and the reader adds one. The design never has to guess which output was correct. It only has to keep every door replaceable. That is also why the master's key is random and sits behind a door rather than being derived from the bytes directly: derived directly, a path with other bytes would derive another master, and nothing could join the two.</p>
+
+<h2 id="parties">Keys and parties</h2>
+<p>Every key in the design, who holds it, and what it can and cannot do. The last four rows are the billing proposal's; the rest run today.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Key</th><th>Held by</th><th>Can</th><th>Cannot</th></tr></thead>
+  <tbody>
+    <tr><td><b>The PRF bytes</b></td><td>Only the page, in memory, after the gesture</td><td>Derive a door's address and key</td><td>Be read by the store, the site operator or the vault server</td></tr>
+    <tr><td><b>A door's vault key</b></td><td>Nowhere; recomputed on each unlock</td><td>Open one door</td><td>Open anything else</td></tr>
+    <tr><td><b>The master's key</b></td><td>Every door, encrypted; the page's memory while unlocked</td><td>Open the keyring</td><td>Be derived from the passkey</td></tr>
+    <tr><td><b>A vault key</b> (reader, billing, notes)</td><td>The master</td><td>Read and write that vault</td><td>Be shared partly; there is no partly-public vault key</td></tr>
+    <tr><td><b>A read key</b></td><td>Whoever was given it; a page, printed</td><td>Clone and decrypt one vault</td><td>Write to it, or be turned into write access</td></tr>
+    <tr><td><b>The access key</b></td><td>The master, pasted once on the first device</td><td>Create vaults and write to the upload server</td><td>Read any vault</td></tr>
+    <tr><td><b>An append token</b></td><td>The sender of a message or a connected browser</td><td>Write to one lane</td><td>List, fetch or read anything</td></tr>
+    <tr><td><b>An enum key</b></td><td>The vault's owner</td><td>List, fetch and mark messages in a lane</td><td>Write</td></tr>
+    <tr><td><b>A signing pair and an encryption pair</b></td><td>The master; made at random, never derived from the passkey</td><td>Sign activity and claims; receive secrets encrypted to the public half</td><td>Change when a lock changes</td></tr>
+    <tr><td><b>The admin key</b></td><td>The admin's device; made there, never exported</td><td>Sign a validation of credit</td><td>Invent activity the user did not sign</td></tr>
+    <tr><td><b>The upload server's key</b></td><td>The upload server</td><td>Check a key against the register and read a signed credit</td><td>Compute a balance; it keeps no database</td></tr>
+    <tr><td><b>The credits API's key</b></td><td>The credits API</td><td>Serve a cached, signed credit with an end date</td><td>Validate anything itself</td></tr>
+  </tbody>
+</table></div>
+
+<h3>The four parties</h3>
+<div class="tablewrap"><table>
+  <thead><tr><th>Party</th><th>Writes</th><th>Reads</th><th>Can be offline</th></tr></thead>
+  <tbody>
+    <tr><td><b>The user</b></td><td>Their own activity, and claims (&ldquo;I paid&rdquo;), signed with their key</td><td>Everything in their own vaults</td><td>Yes; local storage stays primary</td></tr>
+    <tr><td><b>The admin vault</b></td><td>Licensing and validation records, signed with the admin key</td><td>Usage from the users' vaults, close to anonymised; payments from Stripe</td><td>Yes, for hours; it catches up</td></tr>
+    <tr><td><b>The upload server</b></td><td>Ciphertext it is given; a count of what it serves</td><td>A cached, signed credit, and the key register</td><td>No; it is the one server left</td></tr>
+    <tr><td><b>The credits API</b></td><td>Nothing</td><td>The latest signed validation per billing vault</td><td>Briefly; the record carries <code>valid_until</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="security">Security, said plainly</h2>
+<ul>
+  <li><b>What each party sees.</b> The vault server: ciphertext, sizes, times and ids that look random. Your platform account: that a passkey exists for this site, under the name you gave it. The provider that answers a PRF request: the request, and that it answered. Only this page, in your browser, after your gesture, holds the PRF bytes and the keys.</li>
+  <li><b>Whoever can use the passkey by a path that has a door can reach everything below the master.</b> That is exactly the passkey's protection, the biometric, the device and the store, and nothing in this stack adds to it or weakens it. A second passkey for an admin master is how the reach is split.</li>
+  <li><b>A path's bytes are a key a provider lends.</b> Two paths can compute different bytes from one credential, and a provider's fix could change either. The door layer makes that survivable: no door is the only way in.</li>
+  <li><b>The origin loads no third-party scripts, on any page.</b> Storage is per origin. <a href="../admin/index.html#validate">Enforced by the build.</a></li>
+  <li><b>The relying party ID is a trust boundary.</b> This site registers passkeys for <code>users.sgit.ai</code> exactly.</li>
+  <li><b>Passkeys cannot be phished across sites.</b> They are bound to the site's name; a look-alike domain gets nothing.</li>
+  <li><b>Losing everything is final.</b> Every door's passkey and the recovery code gone means no one can open the vaults. That is the property that makes the design worth having, and the first run says so before it shows the code.</li>
+  <li><b>Availability is not secrecy.</b> The vault server could delete or roll back ciphertext. It cannot read it. The local copy covers the first; nothing is needed for the second.</li>
+  <li><b>Agents do not have passkeys.</b> An agent that should read part of a user's data gets a read key for one vault, given by the user from the master, never the master itself.</li>
+  <li><b>Activity reported by the browser is on trust</b> where the cost to us is small. What costs real money, storage and transfer, is counted at the server where it happens.</li>
+</ul>
+
+<h2 id="prf">Where PRF works today</h2>
+<p>As of October 2026, from vendor documentation, published tests and the newsroom's own. The page checks <code>prf.enabled</code> when it creates the passkey, and never guesses.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Passkey provider</th><th>PRF</th><th>What the reader gets</th></tr></thead>
+  <tbody>
+    <tr><td>Google Password Manager (Chrome, Edge, Samsung Internet; Android)</td><td>Yes, by default; desktop Chrome from version 136</td><td>The same account everywhere, by the platform path</td></tr>
+    <tr><td>iCloud Keychain (Safari 18, macOS 15)</td><td>Yes; tested on a Mac, an iPad and an iPhone, in Safari and Chrome</td><td>The same account on every Apple device, by the platform path</td></tr>
+    <tr><td>Windows Hello</td><td>Yes, since the February 2026 update to Windows 11</td><td>This PC, or every PC on the account if synced</td></tr>
+    <tr><td>Firefox</td><td>Yes, on macOS from version 139 and Windows from version 148</td><td>As its store allows</td></tr>
+    <tr><td>Hardware security keys</td><td>Yes through <code>hmac-secret</code>, but not with YubiKeys in Safari</td><td>No account anywhere; a few dozen passkeys per key</td></tr>
+    <tr><td>Your phone, by QR (the hybrid flow)</td><td>Where the phone's store does, with bytes of its own</td><td>A door of its own, added once</td></tr>
+    <tr><td>Chrome's own profile store</td><td>No, in 2026 tests</td><td>Signs, returns no bytes: no door can be derived; it can hold the recovery code</td></tr>
+  </tbody>
+</table></div>
+<p>When PRF is off, the page offers a ladder, in this order: sign in to a store, so the passkey syncs from now on; use your phone by QR, with its own door; plug in a hardware key; or stay on this device, where the browser's own copy keeps working and the recovery code is the way back.</p>
+
+<div class="pagenav">
+  <a href="../index.html">&larr; The front page</a>
+  <a href="../workflows/index.html">The workflows &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>users.sgit.ai, the account is a vault, and the user holds it</title>
+<meta name="description" content="An account with no server: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. The client-side user workflows of the sgit.ai network, what runs today, what is proposed, and a lab that derives a door on this origin.">
+<link rel="canonical" href="https://users.sgit.ai/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/index.html">
+<meta property="og:title" content="users.sgit.ai, the account is a vault, and the user holds it">
+<meta property="og:description" content="No sign-in to the site, no account database, no server of ours that can read a thing. Ten client-side user workflows, the billing design that follows from them, and a lab.">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" type="text/markdown" href="index.md" title="This page as markdown">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="account/index.html#derivation">The derivation</a>
+      <a class="sl" href="account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="billing/index.html#server">The one server left</a>
+      <a class="sl" href="billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="shipped/index.html">What this site ships</a>
+      <a class="sl" href="sources/index.html">The sources</a>
+      <a class="sl" href="network/index.html">The network</a>
+      <a class="sl" href="admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="admin/versions.html">Release history</a>
+      <a class="sl" href="admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="assets/nav.js" defer></script>
+</div></nav>
+
+<header class="hero">
+  <div class="eyebrow">An account with no server · ten client-side workflows · billing on the client · a lab</div>
+  <h1>The account is a vault,<br>and the user holds it</h1>
+  <p class="sub">No sign-in to the site, no account database, no server of ours that can read a thing. A passkey opens a door, the door opens a master, the master holds the keys. The user's browser keeps the record of what they did and the meter of what it cost, and both travel with them. This site collects the client-side user workflows of the <a href="https://sgit.ai">sgit.ai</a> network as they stand on <span class="asof">21 Oct 2026</span>: what runs today on <a href="https://newsroom.sgit.ai">newsroom.sgit.ai</a>, what is designed, what is proposed, and what is still open.</p>
+  <div class="ctas">
+    <a class="cta1" href="workflows/index.html">The ten workflows &rarr;</a>
+    <a class="cta2" href="account/index.html">The account model &rarr;</a>
+    <a class="cta2" href="lab/index.html">Try the lab &rarr;</a>
+  </div>
+</header>
+
+<section class="band alt" id="thesis">
+  <div class="split">
+    <p class="claim" style="text-align:center">&ldquo;Billing is usually a server problem: a server, a database, a balance every action has to update, race conditions, and either a bottleneck or a scheduler to keep it all in step. This is an exploration of doing it the other way round, on the client, with vaults.&rdquo;</p>
+    <p class="cap">From <a href="https://newsroom.sgit.ai/articles/the-user-keeps-the-meter.html">The user keeps the meter</a>, 21 October 2026, the article that proposes this site. The same move was made for the reading account a week earlier, in <a href="https://sgit.ai/articles/the-passkey-opens-the-vault.html">The passkey opens the vault</a>: the account first, then the billing. This site is where the two meet.</p>
+  </div>
+</section>
+
+<section class="band" id="stands">
+  <h2>Where each piece stands</h2>
+  <p class="blurb">The honest column first. A piece either runs somewhere you can open today, has been proven in a lab, is designed on paper, or is a proposal with its open questions written down. Nothing here is dressed as more than it is.</p>
+  <div class="split">
+    <div class="tablewrap"><table>
+      <thead><tr><th>The piece</th><th>Status</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>A passkey opens a door, the door opens the master, the master opens the reader vault</td><td><span class="st st-runs">runs, beta</span></td><td>The vault pane on every newsroom page, since v0.11.0; <a href="https://newsroom.sgit.ai/passkey/index.html">the passkey lab</a></td></tr>
+        <tr><td>A recovery code as a second door, shown once</td><td><span class="st st-runs">runs, beta</span></td><td>The vault pane</td></tr>
+        <tr><td>Two ways in: open with the passkey, or connect with a link that only sends</td><td><span class="st st-runs">runs, beta</span></td><td>newsroom v0.12.58</td></tr>
+        <tr><td>One file per device, totals recomputed from the records, devices merged with aliases</td><td><span class="st st-runs">runs, beta</span></td><td>newsroom v0.12.88</td></tr>
+        <tr><td>A reading meter charged by what is read, credit that can go below zero, nothing blocked</td><td><span class="st st-runs">runs</span></td><td>SG Meter v1.5 on every newsroom article</td></tr>
+        <tr><td>A top-up with a payment link, credited on return</td><td><span class="st st-runs">runs</span></td><td>Live on the newsroom since 11 October 2026</td></tr>
+        <tr><td>Adding a door for a second path, with no key passing through a person</td><td><span class="st st-lab">lab-proven step</span></td><td>One door created, opened and deleted on a real vault server; the pane adds a device with the code</td></tr>
+        <tr><td>Key pairs in the master, random, never derived from the passkey</td><td><span class="st st-designed">designed</span></td><td><a href="https://sgit.ai/articles/the-passkey-opens-the-vault.html">The brief for the MVP</a>, step 5</td></tr>
+        <tr><td>Rotating the master's key after a lost device</td><td><span class="st st-designed">designed</span></td><td>Named as not built on every page that mentions it</td></tr>
+        <tr><td>One billing vault per user, written by two signed parties</td><td><span class="st st-proposed">proposed</span></td><td><a href="billing/index.html">Billing</a></td></tr>
+        <tr><td>An admin vault reconciling payments with Stripe, from a browser</td><td><span class="st st-proposed">proposed</span></td><td><a href="billing/index.html#stripe">Billing</a></td></tr>
+        <tr><td>A credits API and one light check at the upload server</td><td><span class="st st-proposed">proposed</span></td><td><a href="billing/index.html#server">Billing</a></td></tr>
+        <tr><td>One account across every <code>*.sgit.ai</code> site</td><td><span class="st st-open">later, two ways named</span></td><td><a href="workflows/index.html#w9">Workflow 9</a></td></tr>
+        <tr><td>Messages between vaults, on append lanes and PKI</td><td><span class="st st-proposed">proposed</span></td><td><a href="workflows/index.html#w10">Workflow 10</a>; the transport exists</td></tr>
+        <tr><td>A temporary AWS session kept in the user's vault</td><td><span class="st st-proposed">proposed</span></td><td><a href="workflows/index.html#w10">Workflow 10</a></td></tr>
+        <tr><td><b>users.sgit.ai itself</b></td><td><span class="st st-runs">v0.1.0</span></td><td>Publishes the design; runs nothing on a server. <a href="lab/index.html">The lab</a> derives a door on this origin and writes nowhere</td></tr>
+      </tbody>
+    </table></div>
+    <p class="cap">Every row links to the evidence it rests on; <a href="shipped/index.html">what this site ships</a> keeps the same table with its sources, and wins if the two ever disagree.</p>
+  </div>
+</section>
+
+<section class="band alt" id="workflows">
+  <h2>Ten client-side user workflows</h2>
+  <p class="blurb">Each one says what the user does, what their browser does, what leaves the browser, and where it stands. Together they are the user management of a site with no server of its own.</p>
+  <div class="cards">
+    <a class="card" href="workflows/index.html#w1"><span class="tag">1 · runs</span><h3>Sign in where you already are</h3><p>The passkey lives in the store you already use. One gesture gives 32 bytes; the bytes give a door; the door holds the master's key.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w2"><span class="tag">2 · runs</span><h3>The first device: create the account</h3><p>Paste the access key once. The door, the master, the reader vault and the recovery door are made; the code is shown once.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w3"><span class="tag">3 · runs</span><h3>Open, or connect</h3><p>Open the vault with the passkey and read and write; or connect with a link and only send, into an inbox lane.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w4"><span class="tag">4 · runs</span><h3>Which device is this?</h3><p>Asked once, after the open. Adopt a device the vault knows, or be a new one. Two browsers may share a device; devices can be merged.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w5"><span class="tag">5 · runs</span><h3>Update the vault, bring them here</h3><p>One file per device, rewritten whole, one commit. Both directions counted; totals recomputed from the records, never stored.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w6"><span class="tag">6 · runs</span><h3>Read, and pay for what you read</h3><p>&pound;5 to start, a few pence a page by how much of it was read, pause and reset, and a balance that can go below zero.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w7"><span class="tag">7 · runs, then proposed</span><h3>Top up: credit now, validated later</h3><p>Pay on Stripe's page, come back, carry on. A signed claim now; a signed validation from the admin side later.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w8"><span class="tag">8 · designed</span><h3>A new path, a lost device</h3><p>&ldquo;No door here yet&rdquo; is not an error. Add a door from an open device or the recovery code; retire one by deleting its file.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w9"><span class="tag">9 · later</span><h3>Across sites</h3><p>The master already lists keys by site and purpose. A key hub, or related origins: two ways for one account to travel.</p><span class="go">Read &rarr;</span></a>
+    <a class="card" href="workflows/index.html#w10"><span class="tag">10 · mixed</span><h3>Agents, messages and sessions</h3><p>An agent gets a read key for one vault, never the master. Messages ride append lanes. An AWS session lives in a vault for an hour.</p><span class="go">Read &rarr;</span></a>
+  </div>
+</section>
+
+<section class="band" id="parties">
+  <h2>Four parties, each with its own key</h2>
+  <p class="blurb">The whole of user management, activity and billing comes down to four parties, and every one of them signs what it is responsible for and nothing else.</p>
+  <div class="cards">
+    <a class="card" href="account/index.html#parties"><span class="tag">The user</span><h3>Commits their own activity, and owns the record of it</h3><p>Their browser meters what they do, appends it to their vault signed with their key, and adds credit the moment they pay.</p><span class="go">Keys and parties &rarr;</span></a>
+    <a class="card" href="billing/index.html#writers"><span class="tag">The admin vault</span><h3>Writes the validations, collects the usage, reconciles Stripe</h3><p>Can be offline for hours. Catches up from the admin's browser and commits a signed validation back into the user's vault.</p><span class="go">Two writers, two keys &rarr;</span></a>
+    <a class="card" href="billing/index.html#server"><span class="tag">The upload server</span><h3>The inline billing unit: is the key valid, is there credit?</h3><p>The one server left, where usage costs real money. It computes no balance and keeps no database of its own.</p><span class="go">The one server left &rarr;</span></a>
+    <a class="card" href="billing/index.html#server"><span class="tag">The credits API</span><h3>A simple read of the signed credit</h3><p>A cached, signed value with an end date, so the server's check stays small, and a cache a little stale is a known thing, not a bug.</p><span class="go">The one server left &rarr;</span></a>
+  </div>
+</section>
+
+<section class="band alt" id="rules">
+  <h2>The rules this origin keeps</h2>
+  <p class="blurb">A site that will one day hold the door to a user's master vault has to be as strict as the strictest page on it. These are the rules, and the first is enforced by the build rather than by intention.</p>
+  <div class="split">
+    <div class="ladder">
+      <div class="cap"><span class="capnum">1</span><h3>No third-party script, on any page</h3><p>Browser storage is per origin, so a script on one page can read what another page kept. Every script and stylesheet on users.sgit.ai is served from users.sgit.ai, and <a href="admin/index.html#validate">the pre-release gate</a> fails the build on any other origin. The vault library, when it is vendored here, will be pinned at a known commit and never edited.</p></div>
+      <div class="cap"><span class="capnum">2</span><h3>The relying party is this host, exactly</h3><p>A passkey registered for <code>sgit.ai</code> would answer every <code>*.sgit.ai</code> site, and any of them could ask it for PRF bytes. The lab registers for <code>users.sgit.ai</code> and nothing wider. How one account travels across sites is <a href="workflows/index.html#w9">a named question</a>, not an accident of scope.</p></div>
+      <div class="cap"><span class="capnum">3</span><h3>Read keys are printed; vault keys never are</h3><p>A read key is derived one way and cannot be turned into write access, so it belongs in a page where a human can copy it. A vault key is write access and never touches a site. The gate greps the whole tree for key shapes.</p></div>
+      <div class="cap"><span class="capnum">4</span><h3>Local storage stays primary; the vault is a copy the user keeps current</h3><p>Nothing commits on its own. The number of commits is the number of times a person pressed the button. Automatic sync is a setting for later, once the cost of one is known.</p></div>
+      <div class="cap"><span class="capnum">5</span><h3>Records, never totals</h3><p>Reads, top-ups, claims and validations go in raw. Balance is recomputed from the records every time it is shown. A total copied from one device is wrong the moment a second device exists.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="admin/versions.html">v0.1.0</a> · <a href="admin/index.html">engineering</a> · <a href="index.md">this page as markdown</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="account/index.html">&#9679; The model</a>
+    <a href="account/index.html#derivation">The derivation</a>
+    <a href="account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="workflows/index.html">Ten client-side workflows</a>
+    <a href="billing/index.html">Billing: the user keeps the meter</a>
+    <a href="lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="shipped/index.html">What this site ships</a>
+    <a href="sources/index.html">The sources</a>
+    <a href="network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="admin/versions.html">Release history</a>
+    <a href="admin/index.html">Admin &amp; engineering</a>
+    <a href="llms.txt">llms.txt</a>
+    <a href="llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>

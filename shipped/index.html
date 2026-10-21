@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What this site ships, users.sgit.ai</title>
+<meta name="description" content="What users.sgit.ai asserts versus what can be opened today: the pieces that run on newsroom.sgit.ai, the step a lab proved, what is designed, what is proposed, and what this site itself does and does not do.">
+<link rel="canonical" href="https://users.sgit.ai/shipped/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/shipped/index.html">
+<meta property="og:title" content="What this site ships">
+<meta property="og:description" content="The honest column: built, lab-proven, designed, proposed, and the one thing this site runs itself.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="../billing/index.html#server">The one server left</a>
+      <a class="sl" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl here" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl here" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / what this site ships</div>
+<h1>What this site ships</h1>
+<p class="lead">What this site asserts, against what can be opened today, as of <span class="asof">21 Oct 2026</span>. If this page and any other page on the site disagree, this page wins. Every row names where its evidence is.</p>
+
+<h2 id="runs">Runs today, on newsroom.sgit.ai</h2>
+<p>A beta with one reader, as the newsroom's own notes call it. You can do each of these on any newsroom page with the Vault button beside the balance.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>What</th><th>Since</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>Enable with a passkey; a door derived from the PRF bytes; a master; a reader vault; a recovery code as a second door</td><td>v0.11.0, 12 Oct 2026</td><td><a href="https://newsroom.sgit.ai/admin/notes/2026-10-12__the-activity-vault.html">The activity vault</a></td></tr>
+    <tr><td>One file per device, rewritten whole; totals recomputed from the records; <em>Update the vault</em>; <em>Bring them here</em></td><td>v0.11.0; v0.12.6</td><td>Same note; <code>assets/vault-pane/sync.js</code> on the newsroom, checked by <code>admin/build/test_sync.mjs</code></td></tr>
+    <tr><td>An inbox lane on the reader vault any browser with a link can write to and none can read</td><td>v0.12.26, 13 Oct</td><td>The note <em>send to my vault from any browser</em></td></tr>
+    <tr><td>Two ways in, open or connect; which device is this, asked after the open; what the vault holds merged in on an explicit open</td><td>v0.12.58, 13 Oct</td><td><a href="https://newsroom.sgit.ai/admin/notes/2026-10-13__open-or-connect-a-vault.html">Open, or connect</a></td></tr>
+    <tr><td>Merging devices with aliases; a Calls tab that names and decrypts every call; a browse page; a shared viewer vault linked read-only into every reader vault</td><td>v0.12.88, 16 Oct</td><td><a href="https://newsroom.sgit.ai/admin/notes/2026-10-16__the-vault-opened.html">The vault, opened</a></td></tr>
+    <tr><td>The reading meter, charged by what is read, with pause, reset and read/unread by hand; a balance that can go below zero</td><td>SG Meter v1.5.0, 17 Oct; v0.12.110, 18 Oct</td><td><a href="https://newsroom.sgit.ai/articles/your-reading-your-controls.html">Your reading, your controls</a></td></tr>
+    <tr><td>A &pound;5 payment link, credited on return, unique across devices by payment reference</td><td>11 Oct</td><td><a href="https://newsroom.sgit.ai/account/index.html">The account page</a></td></tr>
+    <tr><td>The passkey lab: a passkey with PRF, the bytes with the path shown, the derivation, the recovery code, test vectors against sgit's Python, and real vaults made and opened in the browser with the vendored library</td><td>11 and 12 Oct</td><td><a href="https://newsroom.sgit.ai/passkey/index.html">The passkey lab</a></td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="lab">Lab-proven, once</h2>
+<ul>
+  <li><b>A door created at its derived address on a real vault server, opened again the way a new device would, and its file deleted.</b> The newsroom's lab, 11 and 12 October, with one Google Password Manager passkey and one iCloud Keychain passkey, across a Mac, an iPad and an iPhone.</li>
+  <li><b>The derivation agrees with sgit's Python byte for byte</b>, from a fixed test vector and from live bytes. <a href="../lab/index.html#vectors">This site's lab</a> runs the same vectors through its own copy of the code, and <a href="../admin/build/test_door.mjs">a Node test</a> does the same before a release.</li>
+  <li><b>The same passkey gave different bytes by the QR path</b> than by the platform path, consistently. That finding is why the design has a door per path.</li>
+</ul>
+
+<h2 id="designed">Designed, not built</h2>
+<ul>
+  <li>Key pairs in the master: a signing pair and an encryption pair, made at random on the first device, with the public halves published where the share page and the subscribe lane need them.</li>
+  <li>Adding a door by the other path while unlocked, with no key typed, offered in the first week as <em>add your phone by QR</em>.</li>
+  <li>Retiring a device and rotating the master's key; retiring a master in the order the article gives.</li>
+  <li>Several passkeys for several roles, as several masters, chosen in the provider's own picker.</li>
+  <li>Automatic sync on a timer or on leaving a page, as a setting; pruning local records the vault already holds.</li>
+  <li>The handover of a read key from a master to an agent, for one vault.</li>
+</ul>
+
+<h2 id="proposed">Proposed, with open questions</h2>
+<ul>
+  <li><a href="../billing/index.html">One billing vault per user, two signed writers, credit now and validated later, Stripe reconciled from the admin's browser, a credits API and one light check at the upload server.</a> 21 October 2026. Nothing built; the Stripe flow untested.</li>
+  <li><a href="../workflows/index.html#w10">Messaging-FS</a>: a messenger between vaults on append lanes and PKI. The transport exists; the schema and the commands do not.</li>
+  <li><a href="../workflows/index.html#w10">AWS from the vault</a>: a temporary AWS session kept in a vault for one session, the browser doing the work. Nothing built; the name not decided.</li>
+  <li><a href="../workflows/index.html#w9">One account across sites</a>: a key hub, or Related Origin Requests. Later.</li>
+</ul>
+
+<h2 id="site">What this site itself does</h2>
+<div class="tablewrap"><table>
+  <thead><tr><th>Claim</th><th>True?</th><th>How to check</th></tr></thead>
+  <tbody>
+    <tr><td>Publishes the client-side user workflows and the billing design, with every claim sourced to a dated article or note</td><td><span class="st st-runs">yes</span></td><td><a href="../sources/index.html">The sources</a></td></tr>
+    <tr><td>Runs a lab that makes a passkey for <code>users.sgit.ai</code>, gets PRF bytes and derives a door's address, on this origin</td><td><span class="st st-runs">yes</span></td><td><a href="../lab/index.html">The lab</a>; press the cards</td></tr>
+    <tr><td>Writes nothing to any server, holds no account, keeps no user data</td><td><span class="st st-runs">yes</span></td><td>View source; the lab's log; there is no fetch to any host but this one and the passkey store</td></tr>
+    <tr><td>Loads no third-party script on any page</td><td><span class="st st-runs">yes, enforced</span></td><td><a href="../admin/index.html#validate">The gate</a> fails the build otherwise</td></tr>
+    <tr><td>Has vendored the vault library and can make a vault in the browser</td><td><span class="st st-open">no, not yet</span></td><td><a href="../admin/comms.html#tasks">T1</a></td></tr>
+    <tr><td>Is registered in the sgit.ai network directory</td><td><span class="st st-open">no, not yet</span></td><td><a href="../admin/comms.html#tasks">T6</a>; the Cartographer's prompt on sgit.ai</td></tr>
+    <tr><td>Is the right name: <code>users</code>, <code>user</code>, or <code>billing</code></td><td><span class="st st-open">undecided</span></td><td><a href="../admin/comms.html#asks">N1</a></td></tr>
+  </tbody>
+</table></div>
+
+<div class="pagenav">
+  <a href="../lab/index.html">&larr; The lab</a>
+  <a href="../sources/index.html">The sources &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours. You are on the page that states what is built versus proposed.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>

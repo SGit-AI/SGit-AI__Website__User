@@ -9,6 +9,10 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+# ...but the site build tooling is versioned (validate.js, chrome.py, the generators,
+# version.txt). The stock Python ignore swallows admin/build/ otherwise. The sibling
+# repos carry the same line.
+!admin/build/
 develop-eggs/
 dist/
 downloads/

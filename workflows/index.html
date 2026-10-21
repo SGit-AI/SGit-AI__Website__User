@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ten client-side user workflows, users.sgit.ai</title>
+<meta name="description" content="The user management of a site with no server, as ten workflows: sign in where you already are, create the account, open or connect, which device is this, update the vault, read and pay, top up with credit now and validation later, a new path or a lost device, across sites, and agents, messages and sessions. Each says what the user does, what the browser does, what leaves it, and where it stands.">
+<link rel="canonical" href="https://users.sgit.ai/workflows/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/workflows/index.html">
+<meta property="og:title" content="Ten client-side user workflows">
+<meta property="og:description" content="What the user does, what their browser does, what leaves the browser, and where each stands: runs, lab-proven, designed, or proposed.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl here" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl here" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl here" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl here" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl here" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl here" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="../billing/index.html#server">The one server left</a>
+      <a class="sl" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the workflows</div>
+<h1>Ten client-side user workflows</h1>
+<p class="lead">User management on a site with no server of its own is not one feature. It is a set of things a person does, each of which their browser has to do entirely on its own, against a passkey store for the gesture and a vault server for ciphertext. These are the ten, as they run on <a href="https://newsroom.sgit.ai">newsroom.sgit.ai</a> or as they are designed, on <span class="asof">21 Oct 2026</span>. Each says what the user does, what the browser does, what leaves the browser, and where it stands.</p>
+
+<div class="note"><b>The status chips.</b> <span class="st st-runs">runs</span> you can do it today, on the newsroom, as a beta with one reader. <span class="st st-lab">lab-proven</span> a card in a lab did it once against a real vault server. <span class="st st-designed">designed</span> written down in enough detail to build, not built. <span class="st st-proposed">proposed</span> an argument with its open questions listed. <span class="st st-open">later</span> named, with the ways it could go.</div>
+
+<div class="ladder">
+
+<div class="cap" id="w1"><span class="capnum">1</span><h3>Sign in where you already are</h3>
+<p><b>What the user does.</b> Presses one button and makes the gesture their device already asks for: Touch ID, Face ID, Windows Hello, a hardware key's PIN. No email, no password, no OAuth. The first screen is the passkey, and one line says that it lives in the store you already use and goes where it goes.</p>
+<p><b>What the browser does.</b> Asks the store for the passkey for this site with the PRF extension and a fixed public input. Gets 32 bytes. Derives the door's address and key from them (<a href="../account/index.html#derivation">the derivation</a>), fetches the door's one file, decrypts the master's key, opens the master, and from it opens the reader vault. Reading needs no access key, so a device that can open a door can read before it can write; the access key comes out of the master, so it can write too. The keys of an unlocked session are kept in memory and, for the life of the tab, in session storage, so moving from page to page does not ask for the passkey each time: a choice for the beta, written down so it can be revisited.</p>
+<p><b>What leaves the browser.</b> A PRF request to the passkey store. Plain GETs of ciphertext to the vault server. Not a name, not an email, not a password, not the bytes.</p>
+<span class="from"><span class="st st-runs">runs</span> The vault pane on every newsroom page, since v0.11.0; the Vault button beside the balance. On this origin, <a href="../lab/index.html">the lab</a> does the gesture and the derivation and stops before any server.</span></div>
+
+<div class="cap" id="w2"><span class="capnum">2</span><h3>The first device: create the account</h3>
+<p><b>What the user does.</b> Opens the pane, enables with the passkey, and is told <em>no door here for this path yet</em>. Pastes the access key, once, on this first device. Presses <b>Create the account</b>. Writes down the recovery code, shown once, after a sentence that says losing every passkey and the code is final.</p>
+<p><b>What the browser does.</b> Makes the master's key and the reader vault's key at random. Creates the door at its derived address, the master, the reader vault and the recovery door, with the access key. Puts the access key in the master, so a second device gets it by opening the master. Moves the reading account from this browser's local storage into the reader vault as the first device's file. From newsroom v0.12.1, an account made without an access key in its master asks for it once.</p>
+<p><b>What leaves the browser.</b> Encrypted commits, each one <code>POST /batch</code> to the vault server with the access key as a header, and a publish with compare-and-swap on the ref. The vault server stores ciphertext and hashes.</p>
+<span class="from"><span class="st st-runs">runs</span> newsroom v0.11.0. The key pairs the brief asks for in the master (<span class="st st-designed">designed</span>, step 5) are not made yet.</span></div>
+
+<div class="cap" id="w3"><span class="capnum">3</span><h3>Open, or connect</h3>
+<p><b>What the user does.</b> Chooses one of two ways in, and names nothing first. <b>Open your vault</b> with the passkey (or the recovery code, once): this browser reads and writes. <b>Connect with a link</b> from a browser where the vault is already open, as a URL, text or a QR code: this browser only sends, into the vault's inbox lane, and never reads, not even what it sent. The second is for a browser that cannot reach the passkey: a web view an app opened, a browser signed in to nothing, an old iPad kept light for reading.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th></th><th>Open your vault</th><th>Connect with a link</th></tr></thead>
+  <tbody>
+    <tr><td>needs</td><td>the passkey, or the recovery code once</td><td>the link, which carries where to write and the key to encrypt to, nothing else</td></tr>
+    <tr><td>reads the vault</td><td>yes</td><td>no, nothing</td></tr>
+    <tr><td>writes</td><td>its own device file, one commit per update</td><td>one sealed message per send, into the inbox lane</td></tr>
+    <tr><td>the meter shows</td><td>the whole account, once what the vault holds is brought in</td><td>this browser alone</td></tr>
+  </tbody>
+</table></div>
+<p><b>What the browser does.</b> Four states: nothing; connected (the link in local storage, <em>Send to my vault</em> on every page); open with the device unknown; open with the device known. Opening is the full membership; connecting is the push-only one, and the site is not personalised there. What matters in that browser is that the reads, the decisions and the notes are captured, because they are the reader's own intelligence and the reason they come back.</p>
+<p><b>What leaves the browser.</b> Open: as workflow 1, plus commits. Connect: one account-less POST per send to an append lane, encrypted to the vault's public key, with a response that is deliberately blind.</p>
+<span class="from"><span class="st st-runs">runs</span> newsroom v0.12.58, <a href="https://newsroom.sgit.ai/admin/notes/2026-10-13__open-or-connect-a-vault.html">open, or connect</a>; the inbox lane since v0.12.26.</span></div>
+
+<div class="cap" id="w4"><span class="capnum">4</span><h3>Which device is this?</h3>
+<p><b>What the user does.</b> After an explicit open, and only when there is a choice, answers one question: is this browser a device the vault already knows, or a new one? The chooser offers first the device whose name this browser used, or the one device on the same platform, and the button names the destination. Later, from the Vault tab, <em>Change</em> moves this browser into another device, and <em>Merge</em> ticks two or more devices and folds them into one with a name.</p>
+<p><b>What the browser does.</b> Choosing an existing device takes its id and label, and the merge that follows brings that device's records in as this browser's own. A new device needs no name. Two browsers may share a device, so every write is <code>combine(prev, extract(local))</code> rather than an overwrite: every record of either, the one that knows more where both have it. A merge re-files each source into the target, keeps every record, removes the merged files from the current tree (every earlier version stays in the commits), and writes the merged ids to <code>activity/aliases.json</code>, so a browser still using one is filed under the merged device next time, and so is anything it sends. Nothing is dropped; a payment record is moved, never deleted.</p>
+<p><b>What leaves the browser.</b> Commits, as before. The device label is free text and only a hint; nothing is refused for a name.</p>
+<span class="from"><span class="st st-runs">runs</span> The chooser in v0.12.58; merging, aliases and <em>Change</em> in v0.12.88, <a href="https://newsroom.sgit.ai/admin/notes/2026-10-16__the-vault-opened.html">the vault, opened</a>. Not built: splitting a merged device back out.</span></div>
+
+<div class="cap" id="w5"><span class="capnum">5</span><h3>Update the vault, bring them here</h3>
+<p><b>What the user does.</b> Reads. Presses <b>Update the vault</b> when they want this device's activity in the vault; the Vault button counts what is only in this browser, and a strip above the tabs offers the press on any page. On another device, presses <b>Bring them here</b>, or has it done for them: after an explicit open the merge runs on its own, because the reader asked for the vault and the vault is the account.</p>
+<p><b>What the browser does.</b> Local storage stays primary, written in real time by the meter; the vault is a copy the reader keeps current. One file per device, rewritten whole on every sync, one commit. Two devices never write the same file, so there is nothing to merge at the file level and no conflict by construction; the compare-and-swap on publish still guards the ref. The other direction, <code>inbound()</code>, counts what a merge would add without writing, and shows it as <em>Not yet here</em>. On a page change the saved session opens the vault silently and nothing is merged: a reload under a reader who is reading is not acceptable. A Calls tab names and decrypts every call the pane made to the vault server, so the reader can see what left and what came back.</p>
+<p><b>What leaves the browser.</b> One commit per press. Nothing on a timer.</p>
+<span class="from"><span class="st st-runs">runs</span> newsroom v0.11.0, v0.12.6, v0.12.58, v0.12.88; the design in <a href="https://newsroom.sgit.ai/admin/notes/2026-10-12__the-activity-vault.html">the activity vault</a>. Not built: automatic sync on a timer or on leaving a page; pruning local records the vault already holds.</span></div>
+
+<div class="cap" id="w6"><span class="capnum">6</span><h3>Read, and pay for what you read</h3>
+<p><b>What the user does.</b> Reads. Starts with &pound;5.00 of credit, is charged a few pence a page by how much of it they read, never less than a tenth of the page's price, and can go below zero without anything being blocked. Can pause all measuring, on every page, until they resume; reset a page to unread and have it refunded to the minimum; mark any section read or unread by hand; and say at the foot of a page that it was not worth it, in which case it is not charged. Tops up with a payment link when they want to.</p>
+<p><b>What the browser does.</b> Measures reading section by section: time on each section while the tab is in front and the reader active, against the section's words at 300 a minute, or text passing the reading line no faster than 450 words a minute. Keeps balance, history and receipts in local storage. Computes the totals from the records: reads, spent, declined, credit, balance = start + credit &minus; spent. What was read also builds the reader's graph and their own front page.</p>
+<p><b>What leaves the browser.</b> Nothing, unless the reader chooses: a payment on Stripe's own page, a subscription, or a reading share. The reading itself is on trust: the reader can set the price of a page, edit their own balance, or start again in a private window. Every one of those changes a number only the cheater sees, so the gaps are accepted rather than closed with a server.</p>
+<span class="from"><span class="st st-runs">runs</span> SG Meter v1.5.0 on every newsroom article, charging by what is read since v0.12.99 (17 October 2026); the controls in <a href="https://newsroom.sgit.ai/articles/your-reading-your-controls.html">your reading, your controls</a>.</span></div>
+
+<div class="cap" id="w7"><span class="capnum">7</span><h3>Top up: credit now, validated later</h3>
+<p><b>What the user does.</b> Follows a &pound;5 payment link to Stripe's page, pays, and comes back. The credit is there the moment they return, and they carry on. Nothing central sits in the path of their work.</p>
+<p><b>What the browser does, today.</b> The return page gives the credit; the payment reference makes the top-up unique across devices, because a merged top-up is also added to the device's list of credited references, so a return page opened again on another device cannot credit the same payment twice.</p>
+<p><b>What the browser does, as proposed.</b> The payment link carries a <code>client_reference_id</code>, the billing vault's id, never anything secret. On return the browser adds the credit straight away and appends a signed claim, &ldquo;I paid&rdquo;, to the billing vault. Later, hours later if need be, the admin's browser lists recent payments from Stripe with a restricted, read-only key that stays on the admin's machine, matches each claim to a payment, and commits a signed validation into the same vault. Credit is then in one of three states, and the product carries on in all three because on the client it costs us nothing:</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>State</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>Not yet validated</b></td><td>The user paid, or says they did, and the admin side has not checked yet. Normal, and short-lived; a bank debit can take 2 to 14 days to confirm and simply stays here longer.</td></tr>
+    <tr><td><b>Validated</b></td><td>The admin side matched it to a payment in Stripe, and signed it.</td></tr>
+    <tr><td><b>Not valid</b></td><td>No matching payment. Unlikely; it means an attack, or a bug, and it shows up the next time the admin side runs.</td></tr>
+  </tbody>
+</table></div>
+<p><b>What leaves the browser.</b> Today: the payment, on Stripe's page. Proposed: the signed claim, as a commit to the billing vault.</p>
+<span class="from"><span class="st st-runs">runs</span> The payment link, live since 11 October 2026. <span class="st st-proposed">proposed</span> The claim, the validation and the three states: <a href="../billing/index.html">the user keeps the meter</a>.</span></div>
+
+<div class="cap" id="w8"><span class="capnum">8</span><h3>A new path, a lost device</h3>
+<p><b>What the user does.</b> On a device whose path has no door (a new tablet whose only route is a QR code to the phone, or a path whose bytes a provider's fix has moved), reads <em>no door here for this path yet</em>, never an error, and takes one of two ways in: add the door from a device that is already open, or type the recovery code. In the first week, on a Mac with Chrome where both paths run, adds the QR path as a door in two gestures: open the door you have, then ask for the bytes by the other path. On losing a device, deletes its door from any open one.</p>
+<p><b>What the browser does.</b> Adding a door moves no key through a person: the page is unlocked, so the master's key is in memory; it derives the new door from the other path's bytes, encrypts the master's key under the new door's read key, writes the door's one file with the access key, and adds the door to the master's list. The provider that answered sees a PRF request and returns bytes; it never sees a key. A door is retired by deleting its one file, never by destroying its address, because the address is derived from the passkey and the path and would be lost for ever. Deleting a lost device's door stops that path from finding the master from the next unlock on; it does not undo a copy of the master's key the device may have had in memory, so the full answer is to rotate the master's key and rewrite the doors that are kept.</p>
+<p><b>What leaves the browser.</b> One door file, written. One door file, deleted.</p>
+<span class="from"><span class="st st-lab">lab-proven</span> One door created at its derived address, opened again as a new device would, and deleted, on a real vault server; the pane's <em>Add this device with the code</em> runs. <span class="st st-designed">designed</span> Adding a door by the other path while unlocked (the brief's step 6); rotating the master's key.</span></div>
+
+<div class="cap" id="w9"><span class="capnum">9</span><h3>Across sites</h3>
+<p><b>What the user does, today.</b> Nothing yet. The master is bound to the newsroom: its passkey is registered for <code>newsroom.sgit.ai</code> exactly, and a passkey for <code>sgit.ai</code> is ruled out, because any <code>*.sgit.ai</code> site could ask it for bytes and every one would have to be as strict as the strictest.</p>
+<p><b>What is designed.</b> The master already lists keys by site and purpose, and the billing article's promise rests on it: &ldquo;because the user's data lives in their vault, it travels with them across our sites: what they read, what they set, what they bought, their keys and their preferences.&rdquo; Two ways to get there are named, for later. A <b>key hub</b>, in the manner of <a href="https://secrets.sgit.ai">secrets.sgit.ai</a>, holds the master and hands a site only the key to its own vault, after the user approves it in a pop-up, the way a wallet connects to a site. Or <b>WebAuthn Related Origin Requests</b> let one passkey work on a list of related sites, in Chrome and Safari today.</p>
+<p><b>The question this site carries.</b> Is users.sgit.ai the hub, the origin that holds the door and hands each sibling the key to its own vault? Or does each site keep its own relying party and the hub stays at secrets.sgit.ai? Both are consistent with the two articles; neither has been decided. It is <a href="../admin/comms.html#asks">N3 on the comms page</a>, put to the project lead rather than answered for tidiness.</p>
+<span class="from"><span class="st st-open">later</span> Named in <a href="https://sgit.ai/articles/the-passkey-opens-the-vault.html">The passkey opens the vault</a>, part two, and in <a href="../billing/index.html#user">what the user gets</a>.</span></div>
+
+<div class="cap" id="w10"><span class="capnum">10</span><h3>Agents, messages and sessions</h3>
+<p><b>Give an agent a key.</b> Agents do not have passkeys. An agent that should read part of a user's data gets a read key for one vault, given by the user from the master, never the master itself. An agent that should write gets its own private clone branch, and the work meets on a named branch a human reviews. <span class="st st-runs">runs</span> as sgit's two-branch model; the handover from a master is <span class="st st-designed">designed</span>.</p>
+<p><b>Send a message.</b> Every user now has a vault, every vault can have append lanes, and lanes plus PKI make a messenger: encrypted to the recipient's public key, signed by the sender, carried through a server that sees only ciphertext, size and time. The sender holds an append token that can write to one lane and nothing else; the owner holds the enum key that lists and fetches and cannot write. Messaging-FS is the proposed schema, one JSON file per conversation, next to Issues-FS and Email-FS. <span class="st st-runs">runs</span> The reader vault's inbox lane (v0.12.26) and the newsroom's editor channel. <span class="st st-proposed">proposed</span> Deriving the lane address from the public key, one encoding, signing the whole envelope, the schema and the commands: <a href="https://newsroom.sgit.ai/articles/messaging-fs.html">Messaging-FS</a>.</p>
+<p><b>Hold a session.</b> A temporary AWS session, one to twelve hours of credentials from the AWS access portal, pasted into a vault made for that session; the browser does the work with the normal AWS SDK for JavaScript, and what it finds, inventories, logs and costs, goes back into the vault, versioned and ready for graphs. The roles should be narrow, the sessions short, and the site's own code released the way the API sites are, each version a fixed, independent copy. <span class="st st-proposed">proposed</span> <a href="https://newsroom.sgit.ai/articles/aws-from-the-vault.html">AWS from the vault</a>; nothing built, and the name not decided.</p>
+<p><b>What leaves the browser.</b> A read key, handed to one agent for one vault. A sealed message, to a lane. AWS calls, from the browser, with credentials that live in the vault for the session and never in a page or a repository.</p>
+<span class="from">Three workflows that follow from the first nine: once the user holds the keys, every handover is a key given for one purpose, and every message is a signed file in a lane.</span></div>
+
+</div>
+
+<h2 id="common">What they have in common</h2>
+<ul>
+  <li><b>Nothing is typed twice, and no key passes through a person</b> except the access key once and the recovery code where no door opens.</li>
+  <li><b>Every step runs in the browser</b>, against the passkey store for the gesture and the vault server for ciphertext.</li>
+  <li><b>Records, never totals.</b> Balance, reads and credit are recomputed from the records every time they are shown.</li>
+  <li><b>The user chooses when to sync.</b> One button; nothing commits on its own.</li>
+  <li><b>Soft enforcement.</b> The way in is never a form; a name is a hint; nothing is refused for a label. What the client reports is on trust where the cost is small, and counted at the server where the cost is real.</li>
+  <li><b>An unknown address is not an error.</b> It means a door is not there yet, and the page says so.</li>
+</ul>
+
+<div class="pagenav">
+  <a href="../account/index.html">&larr; The account model</a>
+  <a href="../billing/index.html">Billing &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+# users.sgit.ai, the account is a vault, and the user holds it
+
+> No sign-in to the site, no account database, no server of ours that can read a
+> thing. A passkey opens a door, the door opens a master, the master holds the
+> keys. The user's browser keeps the record of what they did and the meter of
+> what it cost, and both travel with them.
+
+Site version: v0.1.0 (21 October 2026). All content CC BY 4.0.
+
+## What this site is
+
+The client-side user workflows of the sgit.ai network, collected: the account
+with no server (from "The passkey opens the vault", sgit.ai, 11 and 12 October
+2026), the workflows as built on newsroom.sgit.ai (from its build notes of 12,
+13 and 16 October), the reading meter (from "Your reading, your controls", 17
+October), and the billing design that follows (from "The user keeps the meter",
+newsroom.sgit.ai, 21 October 2026, the article that proposes this site).
+
+This site DESCRIBES; newsroom.sgit.ai DOES. Every workflow marked "runs" runs
+there, as a beta with one reader. This site runs one thing itself: a lab that
+makes a passkey for users.sgit.ai with the PRF extension, gets the 32 bytes,
+derives a door's address and sgit's keys from them, and writes nothing to any
+server.
+
+## Consequences an agent can rely on
+
+- Nothing on this site is a live account. There is no server of ours, no user
+  data, no vault made here yet.
+- The derivation in assets/door.js is byte-for-byte the newsroom's, with the
+  relying party as a parameter; lab/vectors.json (computed with sgit 0.21.0's
+  own Python) is run against it on every lab load and by admin/build/test_door.mjs.
+- No script or stylesheet on this origin is loaded from any other origin; the
+  pre-release gate fails the build otherwise. This is the passkey design's one
+  rule, made structural.
+- Passkeys made by the lab are registered for users.sgit.ai exactly, never for
+  sgit.ai.
+- Read keys may be printed on a page; vault keys and access keys never are, and
+  the gate greps the tree for their shapes.
+- Status words are used precisely: "runs" (on the newsroom today), "lab-proven"
+  (once, against a real vault server), "designed" (written to build), "proposed"
+  (argued, with open questions listed), "later" (named, ways given).
+- The billing design is a PROPOSAL. Nothing in it is built. The record formats
+  are sketches. The Stripe flow is untested.
+- The site's own name is UNDECIDED (user / users / billing): comms N1.
+
+## The pages, each with its single most important fact
+
+/index.html
+  The thesis, the table of where each piece stands, the ten workflows as cards,
+  the four parties, and the five rules this origin keeps. Markdown twin: /index.md.
+
+/account/index.html, THE ACCOUNT MODEL
+  Passkey store -> passkey with PRF -> door (derived address, one file) -> master
+  (the keyring) -> the vaults below. The derivation: PRF input SHA-256(rp +
+  "/door/v1"); seed = HKDF(prf bytes, salt SHA-256(rp), "sgit/door/v1");
+  passphrase = hex of 32 HKDF bytes; vault id = 8 x [a-z0-9] with rejection
+  sampling; then sgit's PBKDF2-HMAC-SHA256 at 600,000 iterations for read and
+  write keys. A door per PATH, not per passkey, because the same passkey gave
+  different bytes by QR than by the platform provider. Every key and who holds
+  it; the four parties; security said plainly; where PRF works in October 2026.
+
+/workflows/index.html, TEN CLIENT-SIDE USER WORKFLOWS
+  1 sign in where you already are (runs) · 2 the first device (runs) · 3 open,
+  or connect (runs, v0.12.58) · 4 which device is this, merge (runs, v0.12.88) ·
+  5 update the vault, bring them here (runs) · 6 read and pay for what you read
+  (runs, SG Meter v1.5) · 7 top up: credit now, validated later (the link runs;
+  the claim and validation are proposed) · 8 a new path, a lost device
+  (lab-proven step; designed) · 9 across sites (later: a key hub, or Related
+  Origin Requests) · 10 agents, messages, sessions (mixed). Each: what the user
+  does, what the browser does, what leaves the browser, status.
+
+/billing/index.html, THE USER KEEPS THE METER
+  One billing vault per user; the user signs activity and claims, the admin
+  signs validations; credit is unvalidated, validated, or not valid, and the
+  product works in all three; Stripe is read from the admin's browser (webhooks
+  need a server; events list 30 days; client_reference_id = the billing vault's
+  id); the one server left, the upload server, asks only "key valid? credit
+  left?" from a cached, signed record with valid_until. Four parties. Seven open
+  questions, the first being where it lives.
+
+/lab/index.html, THE LAB
+  Six cards: this browser; make a passkey for users.sgit.ai with PRF; get the
+  bytes (fingerprint and path shown); derive the door (address, ref id, index
+  id, PBKDF2 timings); a recovery code; the newsroom's test vectors against this
+  site's copy of the derivation. Writes nothing to any server. Does not vendor
+  the vault library yet (comms T1), so it makes no vault.
+
+/shipped/index.html
+  The honest column: runs today (with newsroom release numbers), lab-proven
+  once, designed not built, proposed, and what this site itself does and does
+  not do. Wins over any other page if they disagree.
+
+/sources/index.html
+  Every article, note and guidance page this site is drawn from, dated, with
+  what each gives. The source is the one that is right.
+
+/network/index.html
+  Who owns what among the siblings; where this site sits; what a network costs.
+
+/admin/index.html · /admin/comms.html · /admin/versions.html
+  The build and the gate (five checks, the fifth being no third-party script);
+  six asks to the project lead and eight tasks; the release history.
+
+## What this site will not tell you
+
+- A vault key, an access key, or a PRF byte. The lab shows fingerprints.
+- That any billing piece exists. It does not.
+- Which side of the QR path owns the PRF mismatch. Nobody outside Apple and
+  Google can say.
+- A user's data. There are no users here.
+
+## The sibling sites
+
+https://sgit.ai, the parent project: the vault layer, the CLI, the three
+  surfaces, the guidance for site pages
+https://newsroom.sgit.ai, where the workflows run: the vault pane, the passkey
+  lab, the meter, and the articles this site is drawn from
+https://pki.sgit.ai, the key register the upload server would check against
+https://secrets.sgit.ai, secrets on public keys; one of the two ways named for
+  one account across sites
+https://subscriptions.sgit.ai, the commercial model; the repository this site's
+  tooling was copied from
+https://llms.sgit.ai, calling a model with no API key: a key for one purpose
+https://api.send.sgit.ai, the rule of independent, versioned releases any
+  api.users.sgit.ai would follow
+
+## Code
+
+/assets/door.js, the derivation, vendored from the newsroom with the relying
+  party as a parameter (exports doorFrom, sgitKeys, recoveryCode, prfBytes,
+  makePasskey)
+/assets/lab.js, the cards
+/lab/vectors.json, the newsroom's test vectors (sgit 0.21.0, rp newsroom.sgit.ai)
+/admin/build/test_door.mjs, the Node check of door.js against the vectors
+/admin/build/validate.js, the gate · /admin/build/chrome.py, the chrome
+
+Attribution: Dinis Cruz, with AI co-authorship; written by this site's agent from
+the newsroom's and sgit.ai's published work. Repository:
+https://github.com/SGit-AI/SGit-AI__Website__User

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The network, users.sgit.ai</title>
+<meta name="description" content="users.sgit.ai is one of a family of focused sites under sgit.ai. Who owns what, which siblings this site depends on, and what being part of a network costs.">
+<link rel="canonical" href="https://users.sgit.ai/network/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/network/index.html">
+<meta property="og:title" content="The network">
+<meta property="og:description" content="Who owns what among the sibling sites, and how this site uses each.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl" href="../billing/index.html#server">The one server left</a>
+      <a class="sl" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl here" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl here" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / the network</div>
+<h1>The network</h1>
+<p class="lead">This site is one of a family of focused sites under <a href="https://sgit.ai">sgit.ai</a>, each pursuing one question further than a section of the parent could, each with its own version history and repository, and each linking rather than duplicating. This site owns the client-side user: the account with no server, the workflows a user runs in their browser, and the billing that follows. It borrows everything else.</p>
+
+<h2 id="sites">Who owns what</h2>
+<div class="tablewrap"><table>
+  <thead><tr><th>Site</th><th>Owns</th><th>How this site uses it</th></tr></thead>
+  <tbody>
+    <tr><td><b><a href="https://sgit.ai">sgit.ai</a></b></td><td>The parent project: the vault layer, the CLI, the platform documentation, the three surfaces, the guidance for site pages.</td><td>The substrate every workflow runs on, and <a href="../sources/index.html#guidance">the guidance this site was built to</a>.</td></tr>
+    <tr><td><b><a href="https://newsroom.sgit.ai">newsroom.sgit.ai</a></b></td><td>Pay for what you read; the vault pane; the passkey lab; the meter.</td><td>Where every workflow marked <span class="st st-runs">runs</span> actually runs. This site describes; the newsroom does.</td></tr>
+    <tr><td><b><a href="https://pki.sgit.ai">pki.sgit.ai</a></b></td><td>A key registry for agents and people, designed from the 2019 keyserver failure.</td><td>The register the upload server checks a key against; where the admin's and the user's public keys would be published.</td></tr>
+    <tr><td><b><a href="https://secrets.sgit.ai">secrets.sgit.ai</a></b></td><td>Moving a secret from A to B on public keys only; a vault for the private key; the keyring design.</td><td>One of the two ways named for <a href="../workflows/index.html#w9">one account across sites</a>: a key hub that holds the master and hands a site only the key to its own vault.</td></tr>
+    <tr><td><b><a href="https://subscriptions.sgit.ai">subscriptions.sgit.ai</a></b></td><td>A subscription is a discount for regular use, not rent.</td><td>The commercial model a billing vault would meter against; and the repository this site's build tooling was copied from.</td></tr>
+    <tr><td><b><a href="https://llms.sgit.ai">llms.sgit.ai</a></b></td><td>Calling a language model from a vault app with no API key.</td><td>The pattern for what an agent gets from a user: a key for one purpose, never the master.</td></tr>
+    <tr><td><b><a href="https://nhi.sgit.ai">nhi.sgit.ai</a></b></td><td>Identity for agents you run and agents you rent.</td><td>Why agents do not have passkeys, and get read keys instead.</td></tr>
+    <tr><td><b><a href="https://api.send.sgit.ai">api.send.sgit.ai</a></b></td><td>The API behind the vault server, and the rule of independent releases.</td><td>The rule any <code>api.users.sgit.ai</code> would follow: every release a complete, independent copy at its own versioned path.</td></tr>
+    <tr><td><b><a href="https://coding.sgit.ai">coding.sgit.ai</a></b></td><td>How the code across the family is written.</td><td>Followed by <a href="../admin/index.html">this site's build tooling</a> and the lab's code.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="where">Where this site sits</h2>
+<p>The billing article left the question open: <code>user.sgit.ai</code> with <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> with <code>api.billing.sgit.ai</code> so that others can use it easily. This site is at <code>users.sgit.ai</code>, the name the repository was given, and it treats the name as undecided rather than settled by the URL: <a href="../admin/comms.html#asks">N1 on the comms page</a>. It is not yet in the network directory on sgit.ai; adding it is the Cartographer's prompt there, and <a href="../admin/comms.html#tasks">T6 here</a>.</p>
+
+<h2 id="cost">What being part of a network costs</h2>
+<p>Every entry above is a link this site depends on and does not control. A sibling that has not shipped a page this site references is a fact about the network's build order, not a defect here, and it is checked rather than assumed: <a href="../admin/build/check_siblings.py">admin/build/check_siblings.py</a> reports on it as a tool run by hand before a release, never as a gate, because a sibling's outage should not turn this repository's build red for a reason nobody here can fix.</p>
+
+<div class="pagenav">
+  <a href="../sources/index.html">&larr; The sources</a>
+  <a href="../admin/comms.html">Comms &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>

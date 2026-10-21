@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Billing: the user keeps the meter, users.sgit.ai</title>
+<meta name="description" content="A proposed design for user management, activity and billing on vaults: one billing vault per user, two signed writers, credit now and validation later, Stripe reconciled from the admin's browser, and one light check at the upload server. A proposal, with the open questions written down.">
+<link rel="canonical" href="https://users.sgit.ai/billing/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="users.sgit.ai">
+<meta property="og:url" content="https://users.sgit.ai/billing/index.html">
+<meta property="og:title" content="Billing: the user keeps the meter">
+<meta property="og:description" content="Each user gets a billing vault both they and the admin can write to. The user signs activity and claims; the admin signs validations; the one server left asks only whether the key is valid and there is credit.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<nav class="site"><div class="row">
+  <a class="brand" href="../index.html">users<span>.sgit.ai</span></a>
+  <a class="parent" href="https://sgit.ai" title="sgit.ai, the parent project: the vault layer and CLI every workflow on this site runs on, and the network this site is a member of">&#8599; part of <b>sgit.ai</b></a>
+  <span class="stage-pill">client side, by design</span>
+  <a class="ver" href="../admin/versions.html" title="Site release history">v0.1.0</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+  <div class="nav-items">
+    <div class="ni ni-has">
+      <a class="nl" href="../account/index.html">The account<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../account/index.html">&#9679; The model: door, master, vaults</a>
+      <a class="sl" href="../account/index.html#derivation">The derivation</a>
+      <a class="sl" href="../account/index.html#parties">Keys and parties</a>
+      <a class="sl" href="../account/index.html#security">Security, said plainly</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../workflows/index.html">The workflows<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../workflows/index.html">&#9679; Ten client-side workflows</a>
+      <a class="sl" href="../workflows/index.html#w1">Sign in where you already are</a>
+      <a class="sl" href="../workflows/index.html#w3">Open, or connect</a>
+      <a class="sl" href="../workflows/index.html#w7">Credit now, validated later</a>
+      <a class="sl" href="../workflows/index.html#w9">Across sites</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl here" href="../billing/index.html">Billing<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl here" href="../billing/index.html">&#9679; The user keeps the meter</a>
+      <a class="sl here" href="../billing/index.html#writers">Two writers, two keys</a>
+      <a class="sl here" href="../billing/index.html#server">The one server left</a>
+      <a class="sl here" href="../billing/index.html#open">Open questions</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../lab/index.html">The lab<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../lab/index.html">&#9679; Passkey to door, on this origin</a>
+      <a class="sl" href="../lab/index.html#not">What it does not do</a>
+      </div>
+    </div>
+    <div class="ni ni-has">
+      <a class="nl" href="../shipped/index.html">Site<span class="caret">&#9662;</span></a>
+      <div class="sub">
+      <a class="sl" href="../shipped/index.html">What this site ships</a>
+      <a class="sl" href="../sources/index.html">The sources</a>
+      <a class="sl" href="../network/index.html">The network</a>
+      <a class="sl" href="../admin/comms.html">Comms: tasks &amp; requests</a>
+      <a class="sl" href="../admin/versions.html">Release history</a>
+      <a class="sl" href="../admin/index.html">Admin &amp; engineering</a>
+      </div>
+    </div>
+  </div>
+  <a class="gh" href="https://github.com/SGit-AI/SGit-AI__Website__User">&#9733; GitHub</a>
+  <script src="../assets/nav.js" defer></script>
+</div></nav>
+
+<main class="doc">
+<div class="crumb"><a href="../index.html">users.sgit.ai</a> / billing</div>
+<h1>The user keeps the meter</h1>
+<p class="lead">A proposed design for user management, activity and billing on vaults, with one billing vault per user, two signed writers, and one light check at the server. It is the design in <a href="https://newsroom.sgit.ai/articles/the-user-keeps-the-meter.html">the article of the same name</a>, 21 October 2026, set out here as the billing half of this site, with its status kept honest: <b>nothing in it is built</b>, the record formats are sketches, and the Stripe flow is untested.</p>
+
+<div class="warnbox"><b>A proposal.</b> The pieces it builds on exist and are in use today: the meter, the append lanes, the versioning and the key register. The billing vault, the admin vault, the credits API and the upload server's check do not. Every open question is listed <a href="#open">at the end</a>, and the one about where this lives is <a href="../admin/comms.html#asks">on the comms page</a>.</div>
+
+<h2 id="short">In short</h2>
+<ul>
+  <li><b>Billing is usually a server problem.</b> A database, a balance every action updates, and races.</li>
+  <li><b>This proposal does it on the client.</b> Each user has a billing vault; their browser keeps the meter.</li>
+  <li><b>Two writers, two keys.</b> The user signs activity; the admin signs the validation of credit.</li>
+  <li><b>Credit now, validated later.</b> The user carries on straight away; the admin side catches up.</li>
+  <li><b>Stripe is reconciled from the admin's browser.</b> Payments are read, matched and validated.</li>
+  <li><b>One server, one light check.</b> The upload server asks: is the key valid, and is there credit?</li>
+  <li><b>The user's data travels with them.</b> Across every site, because it lives in their vault.</li>
+</ul>
+
+<h2 id="problem">The old problem</h2>
+<p>Every time billing has been built here, it has had the same shape. A server and a database. Every action a user takes updates something central, a balance, a usage count, and the moment two actions arrive at once there is a race on that balance. The usual way out is to append first and update later, write every event to a log and work out the balance from it, but then either every action goes through the thing that updates the balance, which becomes the bottleneck, or the update runs on a schedule, a cron job or a set of functions, which works, and is messy, and is one more thing to run, watch and pay for.</p>
+
+<h2 id="have">What already exists</h2>
+<div class="tablewrap"><table>
+  <thead><tr><th>Piece</th><th>Where it runs</th></tr></thead>
+  <tbody>
+    <tr><td><b>A meter in the reader's browser.</b> Every reader starts with &pound;5 of credit, each page draws a few pence by how much of it was read, the credit is kept in the browser, the balance can go below zero, and a &pound;5 payment link tops it up.</td><td>newsroom.sgit.ai, live since 11 October 2026</td></tr>
+    <tr><td><b>Append lanes.</b> A vault can have a lane that others write to and only its owner reads; a hundred writers on one lane have been measured.</td><td>The reader vault's inbox; the editor's channel</td></tr>
+    <tr><td><b>Version control.</b> Every change is a commit; two writers' changes can be seen, ordered and merged, which is exactly what a balance kept in a file was missing.</td><td>Every vault</td></tr>
+    <tr><td><b>Keys.</b> Every message, secret and handover starts with a signature, and the public keys live in a register anyone can check.</td><td><a href="https://pki.sgit.ai">pki.sgit.ai</a></td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="idea">The idea</h2>
+<p>The insight that makes it work is a simple one. A user very rarely runs several clients at the same time. The race that hurts a central server, many writers on one balance, mostly does not exist for one person's own activity. And for the cases where it does, two tabs, or a laptop and a phone, the vault's version control already does the merging. So each user has a vault that tracks their own activity. Their browser collects what they do, at intervals, and appends it there. That is the newsroom's meter, use first then buy or top up, with the record kept in a vault rather than only in one browser, so it can be backed up, synced, checked and billed.</p>
+
+<div class="chain">
+  <div class="box"><b>The user's browser</b>Meters its own use. Appends activity. Adds credit when it pays.<span class="who">signs with the user's key</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The billing vault, one per user</b>Activity and claims, signed by the user. Validations, signed by the admin. First commit pinned.<span class="who">two writers</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The admin vault</b>In the admin's browser. Reads usage. Reads payments from Stripe. Commits validations back.<span class="who">signs with the admin key</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The credits API</b>A simple read of the latest signed validation, cached, with an end date.<span class="who">its own key</span></div>
+  <div class="arrow">&rarr;</div>
+  <div class="box"><b>The upload server</b>Key valid? Credit left? Then it does the work, and counts what it serves.<span class="who">the one server left</span></div>
+</div>
+
+<h2 id="writers">Two writers, two keys</h2>
+<p>One billing vault per user, which two parties can write to, and each signs only what it is responsible for.</p>
+<ul>
+  <li><b>The user writes activity.</b> Their browser commits what they used, signed with the user's key. That record belongs to them: they can read it, keep it and take it elsewhere.</li>
+  <li><b>The admin validates credit.</b> When the user comes back from paying, their browser adds the credit straight away, with a signed claim. Later, the admin side checks that claim against Stripe and commits a validation into the same vault, signed with the admin key. Anyone can verify it against the admin's public key, and nobody else, the user included, can write a validation that verifies.</li>
+</ul>
+<p>A validation record could be as small as this. The field names are a sketch, not a format:</p>
+<pre class="sketch">{
+  "billing_vault": "the vault's id",
+  "claims": [
+    { "claim": "the user's claim commit", "stripe_event": "the event's id",
+      "pence": 500, "status": "validated" }
+  ],
+  "validated_balance_pence": 4210,
+  "covers_activity_to": "the last activity commit counted",
+  "as_of": "2026-10-21T10:00:00Z",
+  "valid_until": "2026-10-28T10:00:00Z",
+  "signed_by": "the admin key's fingerprint",
+  "signature": "over everything above"
+}</pre>
+<p>The user can add credit their browser believes in, but cannot make it validated, and the admin cannot invent activity the user did not sign.</p>
+
+<h2 id="stripe">The admin vault, and Stripe</h2>
+<p>The other half is a central admin vault, which the admin controls. Usage data flows into it from the users' vaults, close to anonymised but tied to the user so it can be billed, and it is where payments are reconciled with Stripe, from the admin's browser. Stripe's own constraints, from its documentation read on 21 October 2026, shape how:</p>
+<ul>
+  <li><b>Webhooks need a server.</b> Registered endpoints must be publicly accessible HTTPS URLs, signed with a shared secret, not a public key. That does not fit a design with no server to receive them.</li>
+  <li><b>So the admin side reads instead.</b> Stripe's API lists events going back up to 30 days, so the admin's browser pulls recent payments when it runs, rather than waiting for a push.</li>
+  <li><b>The key that reads Stripe stays on the admin's machine.</b> Only publishable keys are safe outside a backend; here the admin's browser plays the backend, with a restricted key that can only read.</li>
+  <li><b>A payment can say which vault it is for.</b> A payment link carries a <code>client_reference_id</code>, returned with the completed payment. It should be the billing vault's id, never anything secret.</li>
+</ul>
+<p>So the flow is: the user is sent to Stripe with a payment link tagged with their billing vault; Stripe sends them back to a page that gives them the credit, and their browser adds it straight away and appends a signed claim; later, the admin's browser lists recent payments, matches each claim to a payment, and commits a signed validation. Two-way sync between two vaults, with each side writing only its own records.</p>
+<pre class="sketch">User's browser  ->  Stripe          pay with a payment link, tagged with the billing vault
+Stripe          ->  User's browser  back to a page that gives the credit
+User's browser  ->  Billing vault   add the credit now, with a signed claim
+                                    (the user carries on straight away)
+Admin's browser ->  Stripe          later: list recent payments, with a read-only key
+Admin's browser ->  Billing vault   match the claim to the payment
+Admin's browser ->  Billing vault   commit a signed validation, or "not accepted"
+Upload server   ->  Billing vault   read the signed validation, cached
+Upload server   ->  Upload server   check the signature and the balance</pre>
+
+<h2 id="credit">Credit now, validated later</h2>
+<p>The user should be able to use what they paid for straight away, so the credit goes into their browser the moment they come back from Stripe. The check comes afterwards, as a layer on top. The admin side does not need to be online when the user pays; it can catch up hours later, and when it does it adds a note to the user's vault, signed as the commercial authority: validated, or not accepted. Stripe's own guidance fits this order: fulfilment cannot rely on the checkout landing page, because customers are not guaranteed to visit it; the admin side reads Stripe directly, so a payment whose user never came back is still credited.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>State</th><th>Meaning</th><th>Who can produce it</th></tr></thead>
+  <tbody>
+    <tr><td><b>Credit not yet validated</b></td><td>The user paid, or says they did; the admin side has not checked. Normal, short-lived.</td><td>The user</td></tr>
+    <tr><td><b>Credit validated</b></td><td>Matched to a payment in Stripe, and signed.</td><td>Only the admin key</td></tr>
+    <tr><td><b>Credit not valid</b></td><td>No matching payment. An attack, or a bug.</td><td>Only the admin key</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="defend">Who is this defending against?</h2>
+<p>The party that could cheat is the user, by gaming the client: adding credit they did not pay for, or leaving out activity. In the short term that is unlikely, and it is easy to detect: every claim has to match a payment in Stripe, every commit is signed, and a claim with no payment behind it shows up as not valid the next time the admin side runs. So the design does not try to make cheating impossible on the client. It makes it visible, and puts the hard check where a mistake would cost money: at the server.</p>
+
+<h2 id="shared">A vault shared by two parties</h2>
+<p>There is a more general idea underneath. The billing vault is shared by an untrusted party, the user, and a trusted one, the admin. Once the vault exists, its first commit is pinned. From then on every later commit can be checked for consistency against it: that it descends from that first commit, and that it is signed by a key we know. That gives a two-way channel between the two parties, through the vault, where it is always known who did what. Billing is the first use; the same pattern fits any place where a user and a service need a shared record both can trust.</p>
+
+<h2 id="server">The one server left</h2>
+<p>Most of the network's sites already run with no server of their own. The one that remains is the sgit upload server, which stores vaults, and it is also where usage costs money, in storage and transfer. So that is where the check belongs, and it stays light:</p>
+<ul>
+  <li><b>Is the key valid?</b> A PKI check, against the register.</li>
+  <li><b>Is there credit?</b> A read of the user's latest signed validation record, verified against the admin's public key.</li>
+</ul>
+<p>The upload server does not compute a balance or keep a database of its own. It reads a cached, signed value through a small credits API with its own simple definition. A cached value can be slightly out of date, so the record carries <code>valid_until</code>, and the upload server can also count what it serves, so the units that cost real money are measured where they happen, not reported by the client. Today the access key gates use of the upload server but does not meter it; vault creation, for example, is not tracked per user. That is the gap this design fills.</p>
+
+<h2 id="user">What the user gets</h2>
+<p>This is not only a billing design. Once a user is logged in, their data lives in their vault, and it travels with them across all of the network's sites: what they read, what they set, what they bought, their keys and their preferences. A logged-in user gets a better experience on every site, without each site keeping a copy of them on a server. How the account travels is <a href="../workflows/index.html#w9">workflow 9</a>, and it is not decided.</p>
+
+<h2 id="trust">What it trusts, and what it does not</h2>
+<div class="tablewrap"><table>
+  <thead><tr><th>Claim</th><th>Trusted?</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Activity reported by the browser</td><td><span class="st st-designed">on trust</span></td><td>As the newsroom's meter, where the reader can set the price of a page. Fine where the cost is small.</td></tr>
+    <tr><td>Storage and transfer</td><td><span class="st st-runs">counted</span></td><td>Measured at the server where they happen.</td></tr>
+    <tr><td>Validated credit</td><td><span class="st st-runs">cannot be forged</span></td><td>It needs the admin's signature. Unvalidated credit could be, and would show up as not valid.</td></tr>
+    <tr><td>A cached credit record</td><td><span class="st st-designed">a little stale</span></td><td>So it carries an end date.</td></tr>
+    <tr><td>The admin key</td><td><span class="st st-open">matters most</span></td><td>Made on the device, never exported.</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="open">Open questions</h2>
+<ol>
+  <li><b>Where does it live?</b> <code>user.sgit.ai</code> and <code>api.user.sgit.ai</code>, or <code>billing.sgit.ai</code> and <code>api.billing.sgit.ai</code>, so others can use it easily. This site is at <code>users.sgit.ai</code>; the name is <a href="../admin/comms.html#asks">N1 on the comms page</a>.</li>
+  <li><b>Should the upload server accept unvalidated credit?</b> Where usage costs real money, it may want only validated credit, or a small amount on top.</li>
+  <li><b>Who creates the first vault?</b> Maybe the service creates a user's first vault for them, when they first log in. The design assumes it already exists; the account model's first-device flow makes it with the access key the user pasted.</li>
+  <li><b>How does login work?</b> A PKI handshake, as everything now does. The account model answers the first half: the passkey, the door, the master, the key pairs. The handshake with a site is the second.</li>
+  <li><b>How anonymous is the usage?</b> The admin vault needs enough to bill, and should get no more.</li>
+  <li><b>How often does the browser sync?</b> Often enough to bill, not so often it slows the user down. The activity vault's answer today is: when the reader presses the button.</li>
+  <li><b>How are refunds and disputes written?</b> Probably as signed validation records too, with their own status.</li>
+</ol>
+
+<h2 id="api">The versioned API sites</h2>
+<p>Whatever the API site is called, it would follow the rule the network's other API sites already use, written down on <a href="https://api.send.sgit.ai/articles/independent-releases.html">api.send.sgit.ai</a>: every release is a complete, independent copy at its own versioned path, never edited after it is published, with a manifest of hashes. A site pins the version it uses, so a change to the API is a new version, not an edit to an old one. The same rule is asked of any site whose code holds a session for the user.</p>
+
+<h2 id="not">What this does not claim</h2>
+<ul>
+  <li><b>Nothing here is built.</b> Neither the billing vault, the admin vault, the credits API nor the upload server's check exists.</li>
+  <li><b>The record formats are sketches.</b> The field names will change.</li>
+  <li><b>The Stripe flow is not tested.</b> Its constraints are from Stripe's documentation, read on 21 October 2026.</li>
+  <li><b>Client-reported activity is not proof.</b> The design says where it is trusted and where it is counted.</li>
+  <li><b>The pieces it builds on exist.</b> The meter, the append lanes, the versioning and the key register are in use today.</li>
+</ul>
+
+<div class="pagenav">
+  <a href="../workflows/index.html">&larr; The workflows</a>
+  <a href="../lab/index.html">The lab &rarr;</a>
+</div>
+</main>
+
+<footer class="site"><div class="cols">
+  <div>
+    <div class="brandline">users<span>.sgit.ai</span></div>
+    <p>The account is a vault, and the user holds it: a passkey opens a door, the door opens a master, the master holds the keys, and the user's browser keeps the record and the meter. No sign-in to the site, no account database, no server of ours that can read a thing. CC BY 4.0, part of the <a href="https://sgit.ai" style="display:inline;padding:0"><b>sgit.ai</b></a> network.</p>
+    <p class="netline"><a href="https://sgit.ai"><b>&#8599; sgit.ai</b></a>, the parent project · <a href="https://newsroom.sgit.ai">&#8599; newsroom.sgit.ai</a>, where the workflows run · <a href="https://pki.sgit.ai">&#8599; pki.sgit.ai</a>, the key register · <a href="https://secrets.sgit.ai">&#8599; secrets.sgit.ai</a>, secrets on public keys · <a href="https://sgit.ai/network/index.html">&#8599; the network</a></p>
+    <p class="partnote">&#9888; Nothing on this site runs on a server of ours, and nothing here is a live account. The workflows that run today run on newsroom.sgit.ai; the billing design is a proposal. <a href="../shipped/index.html" style="display:inline;padding:0">What is built, and what is still proposed</a>.</p>
+    <p class="verline">site <a href="../admin/versions.html">v0.1.0</a> · <a href="../admin/index.html">engineering</a></p>
+  </div>
+  <div>
+    <h4>The account</h4>
+    <a href="../account/index.html">&#9679; The model</a>
+    <a href="../account/index.html#derivation">The derivation</a>
+    <a href="../account/index.html#parties">Keys and parties</a>
+  </div>
+  <div>
+    <h4>The workflows</h4>
+    <a href="../workflows/index.html">Ten client-side workflows</a>
+    <a href="../billing/index.html">Billing: the user keeps the meter</a>
+    <a href="../lab/index.html">The lab</a>
+  </div>
+  <div>
+    <h4>Evidence</h4>
+    <a href="../shipped/index.html">What this site ships</a>
+    <a href="../sources/index.html">The sources</a>
+    <a href="../network/index.html">The network</a>
+  </div>
+  <div>
+    <h4>Site</h4>
+    <a href="../admin/comms.html">Comms: tasks &amp; requests</a>
+    <a href="../admin/versions.html">Release history</a>
+    <a href="../admin/index.html">Admin &amp; engineering</a>
+    <a href="../llms.txt">llms.txt</a>
+    <a href="../llms-full.txt">llms-full.txt</a>
+  </div>
+</div></footer>
+
+</body>
+</html>
